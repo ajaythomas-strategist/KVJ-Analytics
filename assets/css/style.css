@@ -37,6 +37,9 @@
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
+
+  /* Animation Speeds */
+  --ticker-speed: 30s;
 }
 
 /* =========================================
@@ -585,4 +588,111 @@ img {
 .feature-list i {
   color: var(--accent-primary);
   margin-top: 0.3rem;
+}
+
+/* =========================================
+   CLIENT LOGO TICKER
+   ========================================= */
+.ticker-section {
+  padding: 3rem 0;
+  background-color: var(--bg-darker);
+  border-bottom: var(--glass-border);
+}
+
+.ticker-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+}
+
+.ticker-track {
+  display: inline-flex;
+  animation: scroll var(--ticker-speed) linear infinite;
+  gap: 4rem;
+  align-items: center;
+}
+
+.ticker-item {
+  flex: 0 0 auto;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  opacity: 0.6;
+  filter: grayscale(1);
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ticker-item:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* =========================================
+   TESTIMONIALS SECTION
+   ========================================= */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.testimonial-card {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: var(--accent-primary);
+  opacity: 0.2;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-text {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-info h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.author-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
 }
