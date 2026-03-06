@@ -41,7 +41,7 @@
                 <a href="about.html">About Us</a>
                 <a href="services.html">Services</a>
                 <a href="training.html">Training</a>
-                <a href="portfolio.html">Portfolio</a>
+                <!-- <a href="portfolio.html">Portfolio</a> -->
                 <a href="blog.html">Blog</a>
                 <a href="contact.html" class="btn btn-primary" style="padding: 0.5rem 1.2rem; margin-left: 1rem;">Get
                     Started</a>
@@ -53,17 +53,98 @@
     <header class="hero section">
         <div class="container">
             <div class="hero-content">
-                <h1 class="text-gradient">KVJ Analytics: A Decade of Impact</h1>
-                <h2>Transforming Corporates and Educational Institutes Worldwide</h2>
-                <p>For over 15 years, KVJ Analytics has been a trusted partner in data-driven transformation, empowering both corporates and educational institutions. We deliver impactful data analytics solutions, advanced data visualization, and professional training in analytical tools.</p>
+                <h1 class="text-gradient">Data Analytics & Visualization Solutions for Business</h1>
+                <h2>Transform Data Into Powerful Business Insights</h2>
+                <p>We help businesses automate reports, visualize complex data, and train the next generation of data professionals. In today's data-driven world, organizations generate massive amounts of information every day. Our solutions help companies save time, improve reporting efficiency, and gain real-time insights.</p>
                 <div class="hero-buttons">
                     <a href="contact.html" class="btn btn-primary">Get a Free Consultation</a>
-                    <a href="portfolio.html" class="btn btn-outline">View Our Impact</a>
+                    <!-- <a href="portfolio.html" class="btn btn-outline">View Our Impact</a> -->
                 </div>
             </div>
             <div class="hero-image">
-                <!-- Placeholder for high quality dashboard graphic -->
-                <div class="glass-orb"></div>
+                <div class="hero-dashboard">
+                    <div class="db-sidebar">
+                        <div class="db-sidebar-item active" id="db-f1"></div>
+                        <div class="db-sidebar-item" id="db-f2"></div>
+                        <div class="db-sidebar-item" id="db-f3"></div>
+                    </div>
+                    <div class="db-main">
+                        <div class="db-header"></div>
+                        <div class="db-grid">
+                            <div class="db-card blue">
+                                <div class="db-card-label">Revenue</div>
+                                <div class="db-card-value" id="val-rev">$42.5K</div>
+                            </div>
+                            <div class="db-card green">
+                                <div class="db-card-label">Active Users</div>
+                                <div class="db-card-value" id="val-users">1,280</div>
+                            </div>
+                            <div class="db-card purple">
+                                <div class="db-card-label">Growth</div>
+                                <div class="db-card-value" id="val-growth">+14%</div>
+                            </div>
+                            <div class="db-card amber">
+                                <div class="db-card-label">Efficiency</div>
+                                <div class="db-card-value" id="val-eff">92%</div>
+                            </div>
+                        </div>
+                        <div class="db-chart-container">
+                            <div class="db-chart-title">Performance Trend</div>
+                            <div class="db-bar-wrap">
+                                <div class="db-bar" id="bar1" style="height: 60%;"></div>
+                                <div class="db-bar" id="bar2" style="height: 80%;"></div>
+                                <div class="db-bar" id="bar3" style="height: 45%;"></div>
+                                <div class="db-bar" id="bar4" style="height: 90%;"></div>
+                                <div class="db-bar" id="bar5" style="height: 55%;"></div>
+                                <div class="db-bar" id="bar6" style="height: 70%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="db-cursor" id="db-cursor"></div>
+                </div>
+
+                <script>
+                    const dashboardData = [
+                        { rev: '$42.5K', users: '1,280', growth: '+14%', eff: '92%', bars: [60, 80, 45, 90, 55, 70], filter: 'db-f1', x: 25, y: 40 },
+                        { rev: '$58.2K', users: '2,150', growth: '+22%', eff: '88%', bars: [40, 65, 85, 50, 75, 95], filter: 'db-f2', x: 25, y: 80 },
+                        { rev: '$31.9K', users: '940', growth: '+9%', eff: '96%', bars: [90, 40, 30, 60, 45, 35], filter: 'db-f3', x: 25, y: 120 }
+                    ];
+
+                    let currentDbIdx = 0;
+                    const cursor = document.getElementById('db-cursor');
+                    const filters = ['db-f1', 'db-f2', 'db-f3'];
+
+                    function updateDashboard() {
+                        const data = dashboardData[currentDbIdx];
+                        
+                        // Move cursor
+                        cursor.style.left = data.x + 'px';
+                        cursor.style.top = data.y + 'px';
+
+                        setTimeout(() => {
+                            // Update values
+                            document.getElementById('val-rev').innerText = data.rev;
+                            document.getElementById('val-users').innerText = data.users;
+                            document.getElementById('val-growth').innerText = data.growth;
+                            document.getElementById('val-eff').innerText = data.eff;
+
+                            // Update bars
+                            data.bars.forEach((h, i) => {
+                                document.getElementById(`bar${i+1}`).style.height = h + '%';
+                            });
+
+                            // Update filters
+                            filters.forEach(f => {
+                                document.getElementById(f).classList.toggle('active', f === data.filter);
+                            });
+
+                            currentDbIdx = (currentDbIdx + 1) % dashboardData.length;
+                        }, 1200);
+                    }
+
+                    setInterval(updateDashboard, 4000);
+                    updateDashboard();
+                </script>
             </div>
         </div>
     </header>
@@ -128,7 +209,7 @@
                     analytics, visualization, and automation.</p>
             </div>
 
-            <div class="grid-3">
+            <div class="grid-2">
                 <div class="glass-card">
                     <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
                     <h3>Data Visualisation</h3>
@@ -205,50 +286,6 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What Our Clients Say</h2>
-                <p class="section-subtitle">Real feedback from businesses and professionals who have transformed their data landscape with us.</p>
-            </div>
-            
-            <div class="testimonials-grid">
-                <div class="glass-card testimonial-card">
-                    <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="testimonial-text">"The report automation KVJ Analytics implemented saved our finance team over 40 hours a month. Their attention to detail and technical expertise is unmatched."</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Sarah Jenkins</h4>
-                            <p>CFO, TechCorp Solutions</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card testimonial-card">
-                    <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="testimonial-text">"Their Power BI training program was exactly what our analysts needed. The practical, hands-on approach made complex concepts easy to grasp."</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Michael Chen</h4>
-                            <p>Head of Data, Global Health</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card testimonial-card">
-                    <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="testimonial-text">"Professional, responsive, and highly skilled. They didn't just build a dashboard; they built a tool that helps us make better business decisions every day."</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Anita Rodriguez</h4>
-                            <p>Operations Manager, LogiSwift</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
