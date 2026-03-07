@@ -31,7 +31,7 @@
         <div class="container">
             <a href="index.html" class="logo">
                 <img src="assets/images/KVJ%20analytics%20Logo.png" alt="KVJ Analytics Logo"
-                    style="height: 50px; width: auto; max-width: 250px;">
+                    style="height: 55px; width: auto; max-width: 250px;">
             </a>
             <button class="mobile-menu-btn">
                 <i class="fa-solid fa-bars"></i>
@@ -242,7 +242,7 @@
                 const track = document.getElementById('client-logo-track');
                 const fragment = document.createDocumentFragment();
                 let currentIndex = 1;
-                const extensions = ['png', 'jpg', 'jpeg', 'webp'];
+                const extensions = ['png', 'jpg', 'jpeg', 'webp', 'avif'];
 
                 async function checkImage(index) {
                     return new Promise((resolve) => {
@@ -296,7 +296,7 @@
                             div.className = 'ticker-item';
                             // Remove text styling if using images
                             div.style.filter = 'none';
-                            div.innerHTML = `<img src="${src}" alt="Client Logo" style="height: 50px; width: auto; max-width: 180px; object-fit: contain; filter: grayscale(1); transition: filter 0.3s, opacity 0.6s; opacity: 0;" onmouseover="this.style.filter='grayscale(0)'" onmouseout="this.style.filter='grayscale(1)'" onload="this.style.opacity='1'">`;
+                            div.innerHTML = `<img src="${src}" alt="Client Logo" style="height: 55px; width: auto; max-width: 200px; object-fit: contain; transition: opacity 0.6s; opacity: 0;" onload="this.style.opacity='1'">`;
                             fragment.appendChild(div);
                         });
                         track.appendChild(fragment);
@@ -443,7 +443,7 @@
                 <div class="footer-brand">
                     <a href="index.html" class="logo">
                         <img src="assets/images/KVJ%20analytics%20Logo.png" alt="KVJ Analytics Logo"
-                            style="height: 50px; width: auto; max-width: 250px;">
+                            style="height: 55px; width: auto; max-width: 250px;">
                     </a>
                     <p>Turning Data Into Decisions. Smart Data. Smarter Business.</p>
                     <div class="footer-socials">
