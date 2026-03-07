@@ -53,9 +53,10 @@
     <header class="hero section">
         <div class="container">
             <div class="hero-content">
-                <h1 class="text-gradient">Data Analytics & Visualization Solutions for Business</h1>
-                <h2>Transform Data Into Powerful Business Insights</h2>
-                <p>We help businesses automate reports, visualize complex data, and train the next generation of data professionals. In today's data-driven world, organizations generate massive amounts of information every day. Our solutions help companies save time, improve reporting efficiency, and gain real-time insights.</p>
+                <h1 class="text-gradient">Transform Data Into Powerful Business Insights</h1>
+                <h2>Data Analytics & Visualization Solutions for Business</h2>
+                <p>We help businesses to automate reporting, visualize complex data, and build data capabilities for
+                    faster insights, smarter decisions, and greater efficiency.</p>
                 <div class="hero-buttons">
                     <a href="contact.html" class="btn btn-primary">Get a Free Consultation</a>
                     <!-- <a href="portfolio.html" class="btn btn-outline">View Our Impact</a> -->
@@ -65,54 +66,81 @@
                 <!-- Chart.js CDN -->
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-                <div style="background:#0b1120;border-radius:16px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 25px 50px rgba(0,0,0,0.45);overflow:hidden;width:100%;font-family:'Inter',sans-serif;font-size:11px;color:#e2e8f0;">
+                <div
+                    style="background:#0b1120;border-radius:16px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 25px 50px rgba(0,0,0,0.45);overflow:hidden;width:100%;max-width:650px;font-family:'Inter',sans-serif;font-size:11px;color:#e2e8f0;">
                     <!-- Title Bar -->
-                    <div style="background:#0f172a;border-bottom:1px solid rgba(255,255,255,0.06);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
-                        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#ef4444;"></div><div style="width:9px;height:9px;border-radius:50%;background:#f59e0b;"></div><div style="width:9px;height:9px;border-radius:50%;background:#22c55e;"></div></div>
+                    <div
+                        style="background:#0f172a;border-bottom:1px solid rgba(255,255,255,0.06);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
+                        <div style="display:flex;gap:5px;">
+                            <div style="width:9px;height:9px;border-radius:50%;background:#ef4444;"></div>
+                            <div style="width:9px;height:9px;border-radius:50%;background:#f59e0b;"></div>
+                            <div style="width:9px;height:9px;border-radius:50%;background:#22c55e;"></div>
+                        </div>
                         <span style="font-size:9px;color:#475569;">FY 2025-26</span>
                     </div>
                     <!-- Body -->
                     <div style="padding:12px;display:flex;flex-direction:column;gap:10px;">
                         <!-- KPI Cards -->
                         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;">
-                            <div style="background:linear-gradient(135deg,#1e3a5f,#1e40af);border-radius:7px;padding:9px 11px;border:1px solid rgba(59,130,246,0.3);">
-                                <div style="font-size:8px;color:#93c5fd;text-transform:uppercase;letter-spacing:0.5px;">Revenue</div>
-                                <div style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">$58.2K</div>
-                                <div style="font-size:8px;color:#6ee7b7;margin-top:2px;">▲ +12% vs last mo</div>
+                            <div
+                                style="background:linear-gradient(135deg,#1e3a5f,#1e40af);border-radius:7px;padding:9px 11px;border:1px solid rgba(59,130,246,0.3);transition: transform 0.2s;">
+                                <div style="font-size:8px;color:#93c5fd;text-transform:uppercase;letter-spacing:0.5px;">
+                                    Revenue</div>
+                                <div id="kpi-revenue" style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">
+                                    $58.2K</div>
+                                <div id="kpi-revenue-trend" style="font-size:8px;color:#6ee7b7;margin-top:2px;">▲ +12%
+                                    vs last mo</div>
                             </div>
-                            <div style="background:linear-gradient(135deg,#14532d,#16a34a);border-radius:7px;padding:9px 11px;border:1px solid rgba(34,197,94,0.3);">
-                                <div style="font-size:8px;color:#86efac;text-transform:uppercase;letter-spacing:0.5px;">Active Users</div>
-                                <div style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">2,150</div>
-                                <div style="font-size:8px;color:#6ee7b7;margin-top:2px;">▲ +8% this week</div>
+                            <div
+                                style="background:linear-gradient(135deg,#14532d,#16a34a);border-radius:7px;padding:9px 11px;border:1px solid rgba(34,197,94,0.3);transition: transform 0.2s;">
+                                <div style="font-size:8px;color:#86efac;text-transform:uppercase;letter-spacing:0.5px;">
+                                    Active Users</div>
+                                <div id="kpi-users" style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">
+                                    2,150</div>
+                                <div id="kpi-users-trend" style="font-size:8px;color:#6ee7b7;margin-top:2px;">▲ +8% this
+                                    week</div>
                             </div>
-                            <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:7px;padding:9px 11px;border:1px solid rgba(139,92,246,0.3);">
-                                <div style="font-size:8px;color:#c4b5fd;text-transform:uppercase;letter-spacing:0.5px;">Growth</div>
-                                <div style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">+22%</div>
-                                <div style="font-size:8px;color:#c4b5fd;margin-top:2px;">YoY comparison</div>
+                            <div
+                                style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:7px;padding:9px 11px;border:1px solid rgba(139,92,246,0.3);transition: transform 0.2s;">
+                                <div style="font-size:8px;color:#c4b5fd;text-transform:uppercase;letter-spacing:0.5px;">
+                                    Growth</div>
+                                <div id="kpi-growth" style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">
+                                    +22%</div>
+                                <div id="kpi-growth-trend" style="font-size:8px;color:#c4b5fd;margin-top:2px;">YoY
+                                    comparison</div>
                             </div>
-                            <div style="background:linear-gradient(135deg,#78350f,#d97706);border-radius:7px;padding:9px 11px;border:1px solid rgba(245,158,11,0.3);">
-                                <div style="font-size:8px;color:#fde68a;text-transform:uppercase;letter-spacing:0.5px;">Efficiency</div>
-                                <div style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">88%</div>
-                                <div style="font-size:8px;color:#fde68a;margin-top:2px;">Target: 90%</div>
+                            <div
+                                style="background:linear-gradient(135deg,#78350f,#d97706);border-radius:7px;padding:9px 11px;border:1px solid rgba(245,158,11,0.3);transition: transform 0.2s;">
+                                <div style="font-size:8px;color:#fde68a;text-transform:uppercase;letter-spacing:0.5px;">
+                                    Efficiency</div>
+                                <div id="kpi-efficiency"
+                                    style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">88%</div>
+                                <div id="kpi-efficiency-trend" style="font-size:8px;color:#fde68a;margin-top:2px;">
+                                    Target: 90%</div>
                             </div>
                         </div>
                         <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:8px;">
-                            <div style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
+                            <div
+                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
                                 <div style="height:88px;"><canvas id="herocolChart"></canvas></div>
                             </div>
-                            <div style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
+                            <div
+                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
                                 <div style="height:88px;"><canvas id="herolineChart"></canvas></div>
                             </div>
                         </div>
                         <!-- Row 2: Bar + Pie + Donut -->
                         <div style="display:grid;grid-template-columns:1.2fr 0.9fr 0.9fr;gap:8px;">
-                            <div style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
+                            <div
+                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
                                 <div style="height:78px;"><canvas id="herobarChart"></canvas></div>
                             </div>
-                            <div style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
+                            <div
+                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
                                 <div style="height:78px;"><canvas id="heropieChart"></canvas></div>
                             </div>
-                            <div style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
+                            <div
+                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
                                 <div style="height:78px;"><canvas id="herodonutChart"></canvas></div>
                             </div>
                         </div>
@@ -120,72 +148,162 @@
                 </div>
 
                 <script>
-                (function() {
-                    const grd = 'rgba(255,255,255,0.06)', tc = '#475569';
-                    const ax = { grid:{color:grd}, ticks:{color:tc,font:{size:8}} };
-                    const base = { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}} };
+                    (function () {
+                        let colChart, lineChart, barChart, pieChart, donutChart;
+                        const grd = 'rgba(255,255,255,0.06)', tc = '#475569';
+                        const ax = { grid: { color: grd }, ticks: { color: tc, font: { size: 8 } } };
+                        const base = {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: false }
+                            },
+                            onHover: (event, chartElement) => {
+                                event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                            },
+                            onClick: (event, elements, chart) => {
+                                // Randomize KPI values on click to simulate robust interactivity
+                                document.getElementById('kpi-revenue').innerText = '$' + (Math.random() * 40 + 40).toFixed(1) + 'K';
+                                document.getElementById('kpi-revenue-trend').innerText = '▲ +' + Math.floor(Math.random() * 20 + 5) + '% vs last mo';
 
-                    new Chart(document.getElementById('herocolChart'), {
-                        type:'bar',
-                        data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ data:[40,65,85,50,75,95], backgroundColor:['#3b82f6','#6366f1','#8b5cf6','#06b6d4','#10b981','#f59e0b'], borderRadius:3, borderSkipped:false }] },
-                        options:{...base, scales:{x:ax, y:{...ax,beginAtZero:true,max:100}}}
-                    });
-                    new Chart(document.getElementById('herolineChart'), {
-                        type:'line',
-                        data:{ labels:['Q1','Q2','Q3','Q4','Q5','Q6'], datasets:[{ data:[28,38,42,50,55,58.2], borderColor:'#22d3ee', backgroundColor:'rgba(34,211,238,0.1)', pointBackgroundColor:'#22d3ee', pointRadius:3, tension:0.4, fill:true }] },
-                        options:{...base, scales:{x:ax, y:{...ax,beginAtZero:false}}}
-                    });
-                    new Chart(document.getElementById('herobarChart'), {
-                        type:'bar',
-                        data:{ labels:['UAE','India','Oman','USA','Other'], datasets:[{ data:[32,28,18,12,10], backgroundColor:['#6366f1','#3b82f6','#06b6d4','#22c55e','#f59e0b'], borderRadius:3, borderSkipped:false }] },
-                        options:{...base, indexAxis:'y', scales:{x:{...ax,beginAtZero:true}, y:ax}}
-                    });
-                    new Chart(document.getElementById('heropieChart'), {
-                        type:'pie',
-                        data:{ labels:['Analytics','Training','Consult'], datasets:[{ data:[45,35,20], backgroundColor:['#3b82f6','#8b5cf6','#22c55e'], borderWidth:0 }] },
-                        options:{...base, plugins:{legend:{display:true,position:'bottom',labels:{color:'#94a3b8',font:{size:7},boxWidth:7,padding:5}}}}
-                    });
-                    new Chart(document.getElementById('herodonutChart'), {
-                        type:'doughnut',
-                        data:{ labels:['Corporate','College','Indiv.'], datasets:[{ data:[50,30,20], backgroundColor:['#06b6d4','#f59e0b','#ec4899'], borderWidth:0, cutout:'65%' }] },
-                        options:{...base, plugins:{legend:{display:true,position:'bottom',labels:{color:'#94a3b8',font:{size:7},boxWidth:7,padding:5}}}}
-                    });
-                })();
+                                document.getElementById('kpi-users').innerText = Math.floor(Math.random() * 1500 + 1000).toLocaleString();
+                                document.getElementById('kpi-users-trend').innerText = '▲ +' + Math.floor(Math.random() * 15 + 2) + '% this week';
+
+                                document.getElementById('kpi-growth').innerText = '+' + Math.floor(Math.random() * 30 + 10) + '%';
+
+                                document.getElementById('kpi-efficiency').innerText = Math.floor(Math.random() * 15 + 80) + '%';
+
+                                // Randomize Chart Data
+                                if (colChart) {
+                                    colChart.data.datasets[0].data = Array.from({ length: 6 }, () => Math.floor(Math.random() * 80) + 20);
+                                    colChart.update();
+                                }
+                                if (lineChart) {
+                                    lineChart.data.datasets[0].data = Array.from({ length: 6 }, () => Math.floor(Math.random() * 40) + 20);
+                                    lineChart.update();
+                                }
+                                if (barChart) {
+                                    barChart.data.datasets[0].data = Array.from({ length: 5 }, () => Math.floor(Math.random() * 35) + 5);
+                                    barChart.update();
+                                }
+                                if (pieChart) {
+                                    pieChart.data.datasets[0].data = Array.from({ length: 3 }, () => Math.floor(Math.random() * 40) + 10);
+                                    pieChart.update();
+                                }
+                                if (donutChart) {
+                                    donutChart.data.datasets[0].data = Array.from({ length: 3 }, () => Math.floor(Math.random() * 40) + 10);
+                                    donutChart.update();
+                                }
+                            }
+                        };
+
+                        colChart = new Chart(document.getElementById('herocolChart'), {
+                            type: 'bar',
+                            data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ data: [40, 65, 85, 50, 75, 95], backgroundColor: ['#3b82f6', '#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'], borderRadius: 3, borderSkipped: false }] },
+                            options: { ...base, scales: { x: ax, y: { ...ax, beginAtZero: true, max: 100 } } }
+                        });
+                        lineChart = new Chart(document.getElementById('herolineChart'), {
+                            type: 'line',
+                            data: { labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'], datasets: [{ data: [28, 38, 42, 50, 55, 58.2], borderColor: '#22d3ee', backgroundColor: 'rgba(34,211,238,0.1)', pointBackgroundColor: '#22d3ee', pointRadius: 3, tension: 0.4, fill: true }] },
+                            options: { ...base, scales: { x: ax, y: { ...ax, beginAtZero: false } } }
+                        });
+                        barChart = new Chart(document.getElementById('herobarChart'), {
+                            type: 'bar',
+                            data: { labels: ['UAE', 'India', 'Oman', 'USA', 'Other'], datasets: [{ data: [32, 28, 18, 12, 10], backgroundColor: ['#6366f1', '#3b82f6', '#06b6d4', '#22c55e', '#f59e0b'], borderRadius: 3, borderSkipped: false }] },
+                            options: { ...base, indexAxis: 'y', scales: { x: { ...ax, beginAtZero: true }, y: ax } }
+                        });
+                        pieChart = new Chart(document.getElementById('heropieChart'), {
+                            type: 'pie',
+                            data: { labels: ['Analytics', 'Training', 'Consult'], datasets: [{ data: [45, 35, 20], backgroundColor: ['#3b82f6', '#8b5cf6', '#22c55e'], borderWidth: 0 }] },
+                            options: { ...base, plugins: { legend: { display: true, position: 'bottom', labels: { color: '#94a3b8', font: { size: 7 }, boxWidth: 7, padding: 5 } }, tooltip: { enabled: false } } }
+                        });
+                        donutChart = new Chart(document.getElementById('herodonutChart'), {
+                            type: 'doughnut',
+                            data: { labels: ['Corporate', 'College', 'Indiv.'], datasets: [{ data: [50, 30, 20], backgroundColor: ['#06b6d4', '#f59e0b', '#ec4899'], borderWidth: 0, cutout: '65%' }] },
+                            options: { ...base, plugins: { legend: { display: true, position: 'bottom', labels: { color: '#94a3b8', font: { size: 7 }, boxWidth: 7, padding: 5 } }, tooltip: { enabled: false } } }
+                        });
+                    })();
                 </script>
             </div>
 
         </div>
     </header>
-    
+
     <!-- Client Logo Ticker -->
     <section class="ticker-section">
         <div class="ticker-wrapper">
-            <div class="ticker-track">
-                <div class="ticker-item">REVATURE</div>
-                <div class="ticker-item">DUQM REFINERY</div>
-                <div class="ticker-item">OQ Petroleum</div>
-                <div class="ticker-item">FACT</div>
-                <div class="ticker-item">Apollo Tyres</div>
-                <div class="ticker-item">ESAF</div>
-                <div class="ticker-item">Birla Sun Life</div>
-                <div class="ticker-item">AGAPPE</div>
-                <div class="ticker-item">NAGARJUNA</div>
-                <div class="ticker-item">WFB</div>
-                <div class="ticker-item">ADITYA BIRLA</div>
-                <!-- Duplicate for seamless loop -->
-                <div class="ticker-item">REVATURE</div>
-                <div class="ticker-item">DUQM REFINERY</div>
-                <div class="ticker-item">OQ Petroleum</div>
-                <div class="ticker-item">FACT</div>
-                <div class="ticker-item">Apollo Tyres</div>
-                <div class="ticker-item">ESAF</div>
-                <div class="ticker-item">Birla Sun Life</div>
-                <div class="ticker-item">AGAPPE</div>
-                <div class="ticker-item">NAGARJUNA</div>
-                <div class="ticker-item">WFB</div>
-                <div class="ticker-item">ADITYA BIRLA</div>
+            <div class="ticker-track" id="client-logo-track">
+                <!-- Logos will be injected here by JS -->
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const track = document.getElementById('client-logo-track');
+                const fragment = document.createDocumentFragment();
+                let currentIndex = 1;
+                const extensions = ['png', 'jpg', 'jpeg', 'webp'];
+
+                async function checkImage(index) {
+                    for (let ext of extensions) {
+                        try {
+                            const src = `assets/Logos/${index}.${ext}`;
+                            const img = new Image();
+                            await new Promise((resolve, reject) => {
+                                img.onload = resolve;
+                                img.onerror = reject;
+                                img.src = src;
+                            });
+                            return src;
+                        } catch (e) {
+                            continue;
+                        }
+                    }
+                    throw new Error('Not found');
+                }
+
+                async function loadLogos() {
+                    let hasMoreImages = true;
+                    const loadedImages = [];
+
+                    while (hasMoreImages) {
+                        try {
+                            const src = await checkImage(currentIndex);
+                            loadedImages.push(src);
+                            currentIndex++;
+                        } catch (e) {
+                            hasMoreImages = false;
+                        }
+                    }
+
+                    if (loadedImages.length > 0) {
+                        const allImages = [...loadedImages, ...loadedImages, ...loadedImages]; // Triple for smooth seamless loop depending on count
+                        allImages.forEach(src => {
+                            const div = document.createElement('div');
+                            div.className = 'ticker-item';
+                            // Remove text styling if using images
+                            div.style.filter = 'none';
+                            div.innerHTML = `<img src="${src}" alt="Client Logo" style="height: 50px; width: auto; max-width: 180px; object-fit: contain; filter: grayscale(1); transition: filter 0.3s;" onmouseover="this.style.filter='grayscale(0)'" onmouseout="this.style.filter='grayscale(1)'">`;
+                            fragment.appendChild(div);
+                        });
+                        track.appendChild(fragment);
+                    } else {
+                        // Fallback static text if no images are found
+                        const staticLogos = ["REVATURE", "DUQM REFINERY", "OQ Petroleum", "FACT", "Apollo Tyres", "ESAF", "Birla Sun Life", "AGAPPE", "NAGARJUNA", "WFB", "ADITYA BIRLA"];
+                        const allStatic = [...staticLogos, ...staticLogos];
+                        allStatic.forEach(text => {
+                            const div = document.createElement('div');
+                            div.className = 'ticker-item';
+                            div.textContent = text;
+                            fragment.appendChild(div);
+                        });
+                        track.appendChild(fragment);
+                    }
+                }
+
+                loadLogos();
+            });
+        </script>
     </section>
 
     <!-- Impact Stats Section -->
@@ -202,7 +320,7 @@
                 </div>
                 <div class="stat-item">
                     <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.5rem;">25,000+</h2>
-                    <p style="font-weight: 600; color: var(--text-main);">Students Enriched</p>
+                    <p style="font-weight: 600; color: var(--text-main);">Professionals Trained</p>
                 </div>
             </div>
         </div>
@@ -217,29 +335,33 @@
                     analytics, visualization, and automation.</p>
             </div>
 
-            <div class="grid-3">
+            <div class="grid-2">
                 <div class="glass-card">
                     <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
                     <h3>Data Visualisation</h3>
-                    <p>Meticulously crafted experiences to breathe life into crucial business information, creating compelling visual representations.</p>
+                    <p>Meticulously crafted experiences to breathe life into crucial business information, creating
+                        compelling visual representations.</p>
                 </div>
 
                 <div class="glass-card">
                     <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
                     <h3>AI & Process Automation</h3>
-                    <p>Leverage cutting-edge AI and robotic process automation to optimize workflows and drive operational efficiency.</p>
+                    <p>Leverage cutting-edge AI and robotic process automation to optimize workflows and drive
+                        operational efficiency.</p>
                 </div>
 
                 <div class="glass-card">
                     <div class="card-icon"><i class="fa-solid fa-file-excel"></i></div>
                     <h3>Spreadsheet Consulting</h3>
-                    <p>Expert guidance in optimizing spreadsheet processes for maximum efficiency and accuracy across your organization.</p>
+                    <p>Expert guidance in optimizing spreadsheet processes for maximum efficiency and accuracy across
+                        your organization.</p>
                 </div>
 
                 <div class="glass-card">
                     <div class="card-icon"><i class="fa-solid fa-user-graduate"></i></div>
                     <h3>Professional Training</h3>
-                    <p>Hands-on training tailored to your industry, including Microsoft Certifications and advanced analytical tools.</p>
+                    <p>Hands-on training tailored to your industry, including Microsoft Certifications and advanced
+                        analytical tools.</p>
                 </div>
             </div>
         </div>
@@ -252,16 +374,22 @@
                 <h2 style="font-size: 2.2rem; margin-bottom: 2rem;">Why Choose KVJ Analytics</h2>
                 <div style="display: flex; flex-direction: column; gap: 2rem;">
                     <div>
-                        <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;"><i class="fa-solid fa-award"></i> Expertise That Matters</h4>
-                        <p style="color: var(--text-muted);">From our specialized knowledge in Data Visualization, Analytics, and Spreadsheet Consulting, honed through years of industry experience.</p>
+                        <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;"><i
+                                class="fa-solid fa-award"></i> Expertise That Matters</h4>
+                        <p style="color: var(--text-muted);">From our specialized knowledge in Data Visualization,
+                            Analytics, and Spreadsheet Consulting, honed through years of industry experience.</p>
                     </div>
                     <div>
-                        <h4 style="color: var(--accent-secondary); margin-bottom: 0.5rem;"><i class="fa-solid fa-chalkboard-user"></i> Tailored Training Solutions</h4>
-                        <p style="color: var(--text-muted);">Equip your team with the skills they need through our customized training programs designed for both Corporates and Management Institutes.</p>
+                        <h4 style="color: var(--accent-secondary); margin-bottom: 0.5rem;"><i
+                                class="fa-solid fa-chalkboard-user"></i> Tailored Training Solutions</h4>
+                        <p style="color: var(--text-muted);">Equip your team with the skills they need through our
+                            customized training programs designed for both Corporates and Management Institutes.</p>
                     </div>
                     <div>
-                        <h4 style="color: var(--accent-tertiary); margin-bottom: 0.5rem;"><i class="fa-solid fa-lightbulb"></i> Data-Driven Decision-Making</h4>
-                        <p style="color: var(--text-muted);">We help you harness the transformative power of data for strategic decision-making, ensuring your business stays ahead.</p>
+                        <h4 style="color: var(--accent-tertiary); margin-bottom: 0.5rem;"><i
+                                class="fa-solid fa-lightbulb"></i> Data-Driven Decision-Making</h4>
+                        <p style="color: var(--text-muted);">We help you harness the transformative power of data for
+                            strategic decision-making, ensuring your business stays ahead.</p>
                     </div>
                 </div>
             </div>

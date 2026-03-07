@@ -23,7 +23,8 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <img src="assets/images/KVJ%20analytics%20Logo.png" alt="KVJ Analytics Logo" style="height: 50px; width: auto; max-width: 250px;">
+                <img src="assets/images/KVJ%20analytics%20Logo.png" alt="KVJ Analytics Logo"
+                    style="height: 50px; width: auto; max-width: 250px;">
             </a>
             <button class="mobile-menu-btn">
                 <i class="fa-solid fa-bars"></i>
@@ -54,10 +55,11 @@
     <section class="section">
         <div class="container">
 
-            <div class="grid-3" style="grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 5rem;">
+            <div class="grid-3" style="grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 5rem;">
                 <div class="glass-card">
                     <div class="card-icon" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-secondary);">
-                        <i class="fa-solid fa-building-columns"></i></div>
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
                     <h3>Training for Colleges</h3>
                     <p>We collaborate with colleges and educational institutions to provide industry-oriented data
                         analytics training programs designed to bridge the gap between academic learning and real-world
@@ -72,7 +74,8 @@
 
                 <div class="glass-card">
                     <div class="card-icon" style="background: rgba(139, 92, 246, 0.1); color: var(--accent-tertiary);">
-                        <i class="fa-solid fa-user-graduate"></i></div>
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
                     <h3>Training for Individuals</h3>
                     <p>Our professional training programs are designed for students, working professionals, career
                         switchers, and entrepreneurs who want to enter the data field.</p>
@@ -83,7 +86,162 @@
                         <li><i class="fa-solid fa-check text-gradient"></i> Industry projects</li>
                     </ul>
                 </div>
+
+                <div class="glass-card">
+                    <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-primary);">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <h3>Training for Corporates</h3>
+                    <p>We deliver tailored corporate training programs aimed at upskilling your workforce in data
+                        analytics, visualization, and automation tools.</p>
+                    <ul class="feature-list" style="margin-top: 1.5rem;">
+                        <li><i class="fa-solid fa-check text-gradient"></i> Customized corporate modules</li>
+                        <li><i class="fa-solid fa-check text-gradient"></i> Flexible training schedules</li>
+                        <li><i class="fa-solid fa-check text-gradient"></i> Hands-on workshops</li>
+                        <li><i class="fa-solid fa-check text-gradient"></i> ROI & Productivity focused</li>
+                    </ul>
+                </div>
             </div>
+
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <h2 class="section-title">Training Highlights</h2>
+                <p class="section-subtitle">Glimpses from our training sessions.</p>
+            </div>
+
+            <div style="margin-bottom: 5rem; overflow: hidden; white-space: nowrap;">
+                <!-- International Carousel (Left to Right) -->
+                <div style="position: relative; margin-bottom: 2rem;">
+                    <div id="photos-international" class="scroll-track-left"
+                        style="display: flex; gap: 1.5rem; padding-bottom: 1rem; width: max-content;">
+                        <!-- JS will inject International photos here -->
+                    </div>
+                </div>
+
+                <!-- India Carousel (Right to Left) -->
+                <div style="position: relative;">
+                    <div id="photos-india" class="scroll-track-right"
+                        style="display: flex; gap: 1.5rem; padding-bottom: 1rem; width: max-content;">
+                        <!-- JS will inject India photos here -->
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                @keyframes scrollLeftToRight {
+                    0% {
+                        transform: translateX(-33.3333%);
+                    }
+
+                    100% {
+                        transform: translateX(0);
+                    }
+                }
+
+                @keyframes scrollRightToLeft {
+                    0% {
+                        transform: translateX(0);
+                    }
+
+                    100% {
+                        transform: translateX(-33.3333%);
+                    }
+                }
+
+                .scroll-track-left {
+                    animation: scrollLeftToRight linear infinite;
+                }
+
+                .scroll-track-right {
+                    animation: scrollRightToLeft linear infinite;
+                }
+
+                .scroll-track-left:hover,
+                .scroll-track-right:hover {
+                    animation-play-state: paused;
+                }
+            </style>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const internationalTrack = document.getElementById('photos-international');
+                    const indiaTrack = document.getElementById('photos-india');
+                    const extensions = ['png', 'jpg', 'jpeg', 'webp'];
+
+                    async function checkImage(folder, index) {
+                        for (let ext of extensions) {
+                            try {
+                                const src = `assets/Photos/${folder}/${index}.${ext}`;
+                                const img = new Image();
+                                await new Promise((resolve, reject) => {
+                                    img.onload = resolve;
+                                    img.onerror = reject;
+                                    img.src = src;
+                                });
+                                return src;
+                            } catch (e) {
+                                continue;
+                            }
+                        }
+                        throw new Error('Not found');
+                    }
+
+                    async function loadPhotos(folder, trackElement) {
+                        let hasMoreImages = true;
+                        let currentIndex = 1;
+                        let loadedImages = [];
+
+                        // 1. Fetch all available images
+                        while (hasMoreImages) {
+                            try {
+                                const src = await checkImage(folder, currentIndex);
+                                loadedImages.push(src);
+                                currentIndex++;
+                            } catch (e) {
+                                hasMoreImages = false;
+                            }
+                        }
+
+                        // 2. Render images to the DOM
+                        if (loadedImages.length > 0) {
+                            // Calculate consistent duration (e.g., 8 seconds per image)
+                            const secondsPerImage = 8;
+                            const totalDuration = loadedImages.length * secondsPerImage;
+                            trackElement.style.animationDuration = `${totalDuration}s`;
+
+                            // Duplicate the images array to create a seamless infinite scroll loop
+                            const displayImages = [...loadedImages, ...loadedImages, ...loadedImages];
+
+                            displayImages.forEach((src, idx) => {
+                                const img = document.createElement('img');
+                                img.src = src;
+                                img.alt = `Training Photo ${idx}`;
+                                img.style.height = '220px';
+                                img.style.width = 'fit-content';
+                                img.style.borderRadius = '12px';
+                                img.style.boxShadow = 'var(--glass-shadow)';
+                                img.style.objectFit = 'cover';
+                                img.style.flexShrink = '0';
+                                trackElement.appendChild(img);
+                            });
+                        } else {
+                            const p = document.createElement('p');
+                            p.textContent = `No photos currently available. Please upload images.`;
+                            p.style.color = "var(--text-muted)";
+                            p.style.fontSize = "0.9rem";
+                            p.style.fontStyle = "italic";
+                            p.style.textAlign = "center";
+                            p.style.width = "100vw";
+                            trackElement.appendChild(p);
+
+                            // Remove animations if empty
+                            trackElement.classList.remove('scroll-track-left', 'scroll-track-right');
+                        }
+                    }
+
+                    loadPhotos('International', internationalTrack);
+                    loadPhotos('India', indiaTrack);
+                });
+            </script>
 
             <div class="section-header" style="margin-bottom: 3rem;">
                 <h2 class="section-title">Courses Offered</h2>
@@ -93,7 +251,8 @@
                 <!-- Advanced Microsoft Excel -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Advanced Microsoft Excel</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Master Excel Expert (365 Apps) features & automation.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Master Excel Expert
+                        (365 Apps) features & automation.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-check"></i> Advanced Formulas & Macros</li>
                         <li><i class="fa-solid fa-check"></i> Power Query & Data Cleaning</li>
@@ -104,7 +263,8 @@
                 <!-- Azure AI Fundamentals -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Azure AI Fundamentals</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Cloud-based AI workloads and ML principles.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Cloud-based AI
+                        workloads and ML principles.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-brain"></i> ML, Vision & NLP</li>
                         <li><i class="fa-solid fa-cloud"></i> Azure OpenAI Service</li>
@@ -115,7 +275,8 @@
                 <!-- Business Analytics -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Business Analytics</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Industry-aligned specialization for professionals.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Industry-aligned
+                        specialization for professionals.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-chart-line"></i> Domain-Specific Analytics</li>
                         <li><i class="fa-solid fa-tools"></i> Excel, Power BI, SQL, R, RPA</li>
@@ -126,7 +287,8 @@
                 <!-- Power Platform -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Microsoft Power Platform</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Low-code tools for app development & automation.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Low-code tools for app
+                        development & automation.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-bolt"></i> Power Apps & Automate</li>
                         <li><i class="fa-solid fa-database"></i> Microsoft Dataverse</li>
@@ -137,7 +299,8 @@
                 <!-- Power BI Mastery -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Power BI Mastery</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Advanced reporting and business intelligence.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Advanced reporting and
+                        business intelligence.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-table"></i> Data Modeling & Relationships</li>
                         <li><i class="fa-solid fa-server"></i> Power BI Service & Security</li>
@@ -148,7 +311,8 @@
                 <!-- Tableau Mastery -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Tableau Mastery</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Interactive dashboards for data exploration.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Interactive dashboards
+                        for data exploration.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-compass"></i> Tableau Prep & Calculated Fields</li>
                         <li><i class="fa-solid fa-chart-column"></i> LOD Calculations & Mapping</li>
@@ -159,7 +323,8 @@
                 <!-- Data Analytics foundations -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Data Analytics</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Thorough introduction to data management.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Thorough introduction
+                        to data management.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-database"></i> Data Concepts & ETL</li>
                         <li><i class="fa-solid fa-magnifying-glass"></i> Differentiate Analysis Tech</li>
@@ -170,7 +335,8 @@
                 <!-- Data Visualization (Power BI & Tableau) -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Data Visualization</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Bridging raw data and meaningful insights.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Bridging raw data and
+                        meaningful insights.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-chart-pie"></i> DAX & LOD Fundamentals</li>
                         <li><i class="fa-solid fa-map-location-dot"></i> Interactive Reports</li>
@@ -181,7 +347,8 @@
                 <!-- Microsoft PowerPoint -->
                 <div class="glass-card" style="padding: 2rem;">
                     <h3 class="text-gradient" style="font-size: 1.4rem;">Microsoft PowerPoint</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Impactful presentations with multimedia.</p>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-muted);">Impactful
+                        presentations with multimedia.</p>
                     <ul class="feature-list" style="font-size: 0.8rem; margin-bottom: 0;">
                         <li><i class="fa-solid fa-layer-group"></i> Slide Masters & Layouts</li>
                         <li><i class="fa-solid fa-image"></i> Multimedia Integration</li>
@@ -199,7 +366,8 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="index.html" class="logo">
-                        <img src="assets/images/KVJ%20analytics%20Logo.png" alt="KVJ Analytics Logo" style="height: 50px; width: auto; max-width: 250px;">
+                        <img src="assets/images/KVJ%20analytics%20Logo.png" alt="KVJ Analytics Logo"
+                            style="height: 50px; width: auto; max-width: 250px;">
                     </a>
                     <p>Turning Data Into Decisions. Smart Data. Smarter Business.</p>
                 </div>
