@@ -51,6 +51,7 @@
 
     <!-- Hero Section -->
     <header class="hero section">
+        <canvas id="analytics-canvas" class="analytics-canvas"></canvas>
         <div class="container">
             <div class="hero-content">
                 <h1 class="text-gradient">Transform Data Into Powerful Business Insights</h1>
@@ -62,175 +63,136 @@
                     <!-- <a href="portfolio.html" class="btn btn-outline">View Our Impact</a> -->
                 </div>
             </div>
-            <div class="hero-image">
-                <!-- Chart.js CDN -->
-                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-                <div
-                    style="background:#0b1120;border-radius:16px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 25px 50px rgba(0,0,0,0.45);overflow:hidden;width:100%;max-width:650px;font-family:'Inter',sans-serif;font-size:11px;color:#e2e8f0;">
-                    <!-- Title Bar -->
-                    <div
-                        style="background:#0f172a;border-bottom:1px solid rgba(255,255,255,0.06);padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
-                        <div style="display:flex;gap:5px;">
-                            <div style="width:9px;height:9px;border-radius:50%;background:#ef4444;"></div>
-                            <div style="width:9px;height:9px;border-radius:50%;background:#f59e0b;"></div>
-                            <div style="width:9px;height:9px;border-radius:50%;background:#22c55e;"></div>
-                        </div>
-                        <span style="font-size:9px;color:#475569;">FY 2025-26</span>
-                    </div>
-                    <!-- Body -->
-                    <div style="padding:12px;display:flex;flex-direction:column;gap:10px;">
-                        <!-- KPI Cards -->
-                        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;">
-                            <div
-                                style="background:linear-gradient(135deg,#1e3a5f,#1e40af);border-radius:7px;padding:9px 11px;border:1px solid rgba(59,130,246,0.3);transition: transform 0.2s;">
-                                <div style="font-size:8px;color:#93c5fd;text-transform:uppercase;letter-spacing:0.5px;">
-                                    Revenue</div>
-                                <div id="kpi-revenue" style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">
-                                    $58.2K</div>
-                                <div id="kpi-revenue-trend" style="font-size:8px;color:#6ee7b7;margin-top:2px;">▲ +12%
-                                    vs last mo</div>
-                            </div>
-                            <div
-                                style="background:linear-gradient(135deg,#14532d,#16a34a);border-radius:7px;padding:9px 11px;border:1px solid rgba(34,197,94,0.3);transition: transform 0.2s;">
-                                <div style="font-size:8px;color:#86efac;text-transform:uppercase;letter-spacing:0.5px;">
-                                    Active Users</div>
-                                <div id="kpi-users" style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">
-                                    2,150</div>
-                                <div id="kpi-users-trend" style="font-size:8px;color:#6ee7b7;margin-top:2px;">▲ +8% this
-                                    week</div>
-                            </div>
-                            <div
-                                style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:7px;padding:9px 11px;border:1px solid rgba(139,92,246,0.3);transition: transform 0.2s;">
-                                <div style="font-size:8px;color:#c4b5fd;text-transform:uppercase;letter-spacing:0.5px;">
-                                    Growth</div>
-                                <div id="kpi-growth" style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">
-                                    +22%</div>
-                                <div id="kpi-growth-trend" style="font-size:8px;color:#c4b5fd;margin-top:2px;">YoY
-                                    comparison</div>
-                            </div>
-                            <div
-                                style="background:linear-gradient(135deg,#78350f,#d97706);border-radius:7px;padding:9px 11px;border:1px solid rgba(245,158,11,0.3);transition: transform 0.2s;">
-                                <div style="font-size:8px;color:#fde68a;text-transform:uppercase;letter-spacing:0.5px;">
-                                    Efficiency</div>
-                                <div id="kpi-efficiency"
-                                    style="font-size:17px;font-weight:700;color:#fff;margin-top:2px;">88%</div>
-                                <div id="kpi-efficiency-trend" style="font-size:8px;color:#fde68a;margin-top:2px;">
-                                    Target: 90%</div>
-                            </div>
-                        </div>
-                        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:8px;">
-                            <div
-                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
-                                <div style="height:88px;"><canvas id="herocolChart"></canvas></div>
-                            </div>
-                            <div
-                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
-                                <div style="height:88px;"><canvas id="herolineChart"></canvas></div>
-                            </div>
-                        </div>
-                        <!-- Row 2: Bar + Pie + Donut -->
-                        <div style="display:grid;grid-template-columns:1.2fr 0.9fr 0.9fr;gap:8px;">
-                            <div
-                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
-                                <div style="height:78px;"><canvas id="herobarChart"></canvas></div>
-                            </div>
-                            <div
-                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
-                                <div style="height:78px;"><canvas id="heropieChart"></canvas></div>
-                            </div>
-                            <div
-                                style="background:rgba(255,255,255,0.03);border-radius:7px;border:1px solid rgba(255,255,255,0.06);padding:8px;">
-                                <div style="height:78px;"><canvas id="herodonutChart"></canvas></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    (function () {
-                        let colChart, lineChart, barChart, pieChart, donutChart;
-                        const grd = 'rgba(255,255,255,0.06)', tc = '#475569';
-                        const ax = { grid: { color: grd }, ticks: { color: tc, font: { size: 8 } } };
-                        const base = {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: { display: false },
-                                tooltip: { enabled: false }
-                            },
-                            onHover: (event, chartElement) => {
-                                event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
-                            },
-                            onClick: (event, elements, chart) => {
-                                // Randomize KPI values on click to simulate robust interactivity
-                                document.getElementById('kpi-revenue').innerText = '$' + (Math.random() * 40 + 40).toFixed(1) + 'K';
-                                document.getElementById('kpi-revenue-trend').innerText = '▲ +' + Math.floor(Math.random() * 20 + 5) + '% vs last mo';
-
-                                document.getElementById('kpi-users').innerText = Math.floor(Math.random() * 1500 + 1000).toLocaleString();
-                                document.getElementById('kpi-users-trend').innerText = '▲ +' + Math.floor(Math.random() * 15 + 2) + '% this week';
-
-                                document.getElementById('kpi-growth').innerText = '+' + Math.floor(Math.random() * 30 + 10) + '%';
-
-                                document.getElementById('kpi-efficiency').innerText = Math.floor(Math.random() * 15 + 80) + '%';
-
-                                // Randomize Chart Data
-                                if (colChart) {
-                                    colChart.data.datasets[0].data = Array.from({ length: 6 }, () => Math.floor(Math.random() * 80) + 20);
-                                    colChart.update();
-                                }
-                                if (lineChart) {
-                                    lineChart.data.datasets[0].data = Array.from({ length: 6 }, () => Math.floor(Math.random() * 40) + 20);
-                                    lineChart.update();
-                                }
-                                if (barChart) {
-                                    barChart.data.datasets[0].data = Array.from({ length: 5 }, () => Math.floor(Math.random() * 35) + 5);
-                                    barChart.update();
-                                }
-                                if (pieChart) {
-                                    pieChart.data.datasets[0].data = Array.from({ length: 3 }, () => Math.floor(Math.random() * 40) + 10);
-                                    pieChart.update();
-                                }
-                                if (donutChart) {
-                                    donutChart.data.datasets[0].data = Array.from({ length: 3 }, () => Math.floor(Math.random() * 40) + 10);
-                                    donutChart.update();
-                                }
-                            }
-                        };
-
-                        colChart = new Chart(document.getElementById('herocolChart'), {
-                            type: 'bar',
-                            data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ data: [40, 65, 85, 50, 75, 95], backgroundColor: ['#3b82f6', '#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'], borderRadius: 3, borderSkipped: false }] },
-                            options: { ...base, scales: { x: ax, y: { ...ax, beginAtZero: true, max: 100 } } }
-                        });
-                        lineChart = new Chart(document.getElementById('herolineChart'), {
-                            type: 'line',
-                            data: { labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6'], datasets: [{ data: [28, 38, 42, 50, 55, 58.2], borderColor: '#22d3ee', backgroundColor: 'rgba(34,211,238,0.1)', pointBackgroundColor: '#22d3ee', pointRadius: 3, tension: 0.4, fill: true }] },
-                            options: { ...base, scales: { x: ax, y: { ...ax, beginAtZero: false } } }
-                        });
-                        barChart = new Chart(document.getElementById('herobarChart'), {
-                            type: 'bar',
-                            data: { labels: ['UAE', 'India', 'Oman', 'USA', 'Other'], datasets: [{ data: [32, 28, 18, 12, 10], backgroundColor: ['#6366f1', '#3b82f6', '#06b6d4', '#22c55e', '#f59e0b'], borderRadius: 3, borderSkipped: false }] },
-                            options: { ...base, indexAxis: 'y', scales: { x: { ...ax, beginAtZero: true }, y: ax } }
-                        });
-                        pieChart = new Chart(document.getElementById('heropieChart'), {
-                            type: 'pie',
-                            data: { labels: ['Analytics', 'Training', 'Consult'], datasets: [{ data: [45, 35, 20], backgroundColor: ['#3b82f6', '#8b5cf6', '#22c55e'], borderWidth: 0 }] },
-                            options: { ...base, plugins: { legend: { display: true, position: 'bottom', labels: { color: '#94a3b8', font: { size: 7 }, boxWidth: 7, padding: 5 } }, tooltip: { enabled: false } } }
-                        });
-                        donutChart = new Chart(document.getElementById('herodonutChart'), {
-                            type: 'doughnut',
-                            data: { labels: ['Corporate', 'College', 'Indiv.'], datasets: [{ data: [50, 30, 20], backgroundColor: ['#06b6d4', '#f59e0b', '#ec4899'], borderWidth: 0, cutout: '65%' }] },
-                            options: { ...base, plugins: { legend: { display: true, position: 'bottom', labels: { color: '#94a3b8', font: { size: 7 }, boxWidth: 7, padding: 5 } }, tooltip: { enabled: false } } }
-                        });
-                    })();
-                </script>
-            </div>
-
         </div>
-    </header>
 
-    <!-- Client Logo Ticker -->
+        <!-- Animated Background Script -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const canvas = document.getElementById('analytics-canvas');
+                const ctx = canvas.getContext('2d');
+
+                let width, height;
+                let particles = [];
+
+                const particleCount = 70;
+                const maxDistance = 150;
+                let mouse = { x: -1000, y: -1000, radius: 150 };
+
+                function resize() {
+                    width = canvas.width = window.innerWidth;
+                    // match parent header height
+                    height = canvas.height = canvas.parentElement.offsetHeight;
+                }
+
+                window.addEventListener('resize', resize);
+                canvas.parentElement.addEventListener('mousemove', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    mouse.x = e.clientX - rect.left;
+                    mouse.y = e.clientY - rect.top;
+                });
+                canvas.parentElement.addEventListener('mouseleave', () => {
+                    mouse.x = -1000;
+                    mouse.y = -1000;
+                });
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.vx = (Math.random() - 0.5) * 1.0;
+                        this.vy = (Math.random() - 0.5) * 1.0;
+                        this.radius = Math.random() * 3 + 2; // Bigger dots
+                        // Vibrant blue and indigo for light theme
+                        this.baseColor = Math.random() > 0.5 ? 'rgba(14, 165, 233, ' : 'rgba(99, 102, 241, ';
+                        this.alpha = Math.random() * 0.5 + 0.5; // More opaque
+                    }
+
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+
+                        if (this.x < 0 || this.x > width) this.vx *= -1;
+                        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < mouse.radius) {
+                            const forceDirectionX = dx / distance;
+                            const forceDirectionY = dy / distance;
+                            const force = (mouse.radius - distance) / mouse.radius;
+
+                            this.x -= forceDirectionX * force * 1.5;
+                            this.y -= forceDirectionY * force * 1.5;
+
+                            if (this.x < 0) this.x = 0; if (this.x > width) this.x = width;
+                            if (this.y < 0) this.y = 0; if (this.y > height) this.y = height;
+                        }
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = this.baseColor + this.alpha + ')';
+                        ctx.fill();
+                    }
+                }
+
+                function init() {
+                    resize();
+                    particles = [];
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                }
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, width, height);
+
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+
+                        for (let j = i; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < maxDistance) {
+                                const opacity = 1 - (distance / maxDistance);
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(14, 165, 233, ${opacity * 0.7})`; // Thicker/more visible lines
+                                ctx.lineWidth = 1.5;
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
+                        }
+
+                        const dx = mouse.x - particles[i].x;
+                        const dy = mouse.y - particles[i].y;
+                        const mouseDistance = Math.sqrt(dx * dx + dy * dy);
+                        if (mouseDistance < 150) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(99, 102, 241, ${(1 - mouseDistance / 150) * 0.8})`; // stronger mouse line
+                            ctx.lineWidth = 1.5;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // wait slight delay to ensure fonts/layout are loaded before sizing canvas
+                setTimeout(() => {
+                    init();
+                    animate();
+                }, 100);
+            });
+        </script>
+    </header>\n\n <!-- Client Logo Ticker -->
     <section class="ticker-section">
         <div class="ticker-wrapper">
             <div class="ticker-track" id="client-logo-track">
