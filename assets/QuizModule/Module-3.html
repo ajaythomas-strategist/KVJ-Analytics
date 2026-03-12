@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: I/O Operations | KVJ Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a5f;
+            --secondary-blue: #008eab;
+            --bg-light: #f6f8fb;
+            --text-main: #1d1d1f;
+            --text-muted: #4b5563;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Top Nav */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+        }
+
+        .kvj-logo-img { max-height: 35px; width: auto; }
+
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            padding: 8px 18px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+            transition: opacity 0.3s;
+            text-transform: uppercase;
+        }
+
+        /* Header Banner */
+        .header-banner { 
+            background: var(--primary-blue); 
+            color: white; 
+            padding: 120px 20px 60px; 
+            text-align: center; 
+        }
+        .header-banner h1 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px; 
+            font-weight: 900; 
+            letter-spacing: -1px; 
+            text-transform: uppercase;
+        }
+
+        /* Layout Container */
+        .layout-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 40px auto;
+            gap: 40px;
+            width: 95%;
+            padding-bottom: 60px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 100px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            height: fit-content;
+        }
+
+        .sidebar h3 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px; 
+            color: var(--secondary-blue); 
+            text-transform: uppercase; 
+            margin-bottom: 20px; 
+            border-bottom: 2px solid var(--bg-light); 
+            padding-bottom: 10px; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+        }
+
+        .sidebar a { 
+            display: flex; 
+            align-items: center;
+            padding: 12px 15px; 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 14px; 
+            font-weight: 500;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .sidebar a.active { 
+            color: var(--primary-blue); 
+            font-weight: 700; 
+            background: #f0f7ff; 
+            border-left: 4px solid var(--primary-blue); 
+        }
+
+        .sidebar a:hover:not(.active) {
+            background: #f8fafc;
+            color: var(--primary-blue);
+        }
+
+        /* Main Content Area */
+        .main-content { 
+            flex: 1;
+            background: #ffffff; 
+            border: 1px solid var(--border-color);
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.04);
+        }
+
+        .section-header { 
+            margin-bottom: 30px; 
+            border-bottom: 3px solid var(--bg-light); 
+            padding-bottom: 15px; 
+        }
+        .section-header h2 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue); 
+            font-size: 28px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: -0.5px;
+        }
+
+        /* Content Styles */
+        p { line-height: 1.8; margin-bottom: 25px; color: #334155; font-size: 17px; }
+        strong { color: var(--primary-blue); font-weight: 700; }
+        h1, h2, h3 { color: var(--primary-blue); font-weight: 700; }
+        
+        .interaction-box strong { color: var(--secondary-blue); }
+        
+        .interaction-box { 
+            background-color: #f7f9fc; 
+            border-left: 5px solid var(--secondary-blue); 
+            padding: 25px; 
+            margin: 30px 0; 
+            border-radius: 0 10px 10px 0;
+            font-size: 15px;
+        }
+
+        h3 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue); 
+            margin: 40px 0 20px; 
+            font-size: 22px; 
+            font-weight: 700; 
+        }
+
+        /* Code Block Styling */
+        pre { 
+            background: #1e293b; 
+            color: #f8fafc; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            font-family: 'Fira Code', 'Consolas', monospace; 
+            font-size: 14px; 
+            margin: 20px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .output-box { 
+            background-color: #ecfeff; 
+            border: 1px solid #cffafe; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-family: monospace; 
+            font-size: 14px; 
+            margin-bottom: 30px; 
+            color: var(--secondary-blue); 
+            font-weight: 700; 
+            display: flex;
+            align-items: center;
+        }
+        .output-box::before { content: "> Result: "; margin-right: 10px; opacity: 0.6; }
+
+        /* Keywords */
+        .keyword { color: #f472b6; }
+        .function { color: #4ade80; }
+        .string { color: #fbbf24; }
+        .comment { color: #94a3b8; }
+
+        /* Quiz CTA */
+        .quiz-cta {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #008eab 100%);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 142, 171, 0.2);
+        }
+        .quiz-cta h3 { color: white; margin-top: 0; font-size: 24px; border: none; padding: 0; }
+        .quiz-cta p { color: rgba(255,255,255,0.8); margin-bottom: 25px; }
+        .btn-start-quiz {
+            display: inline-block;
+            background: #ffffff;
+            color: var(--primary-blue);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .btn-start-quiz:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: #f8fafc;
+        }
+
+        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 13px; border-top: 1px solid var(--border-color); margin-top: 40px; }
+        
+        /* Practice Space Styling */
+        .practice-space {
+            background: #ffffff;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 15px rgba(0, 142, 171, 0.1);
+        }
+        .practice-space h3 { margin-top: 0; color: var(--secondary-blue); font-size: 20px; }
+        .practice-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .practice-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .practice-box button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+        .practice-box button:hover { background: var(--secondary-blue); }
+        .feedback {
+            margin-top: 15px;
+            font-weight: 700;
+            display: none;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .feedback.correct { color: #065f46; background: #ecfdf5; display: block; border: 1px solid #a7f3d0; }
+        .feedback.wrong { color: #991b1b; background: #fef2f2; display: block; border: 1px solid #fecaca; }
+
+        /* Coding Practice Styling */
+        .coding-practice {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            color: #f8fafc;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .coding-practice h3 { margin-top: 0; color: #7dd3fc; font-size: 22px; font-weight: 700; }
+        .coding-practice p { color: #e2e8f0; font-size: 16px; margin-bottom: 20px; }
+        .coding-practice strong { color: #f8fafc; font-weight: 800; }
+        .coding-practice textarea {
+            width: 100%;
+            height: 120px;
+            background: #0f172a;
+            color: #38bdf8;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            resize: vertical;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        .coding-practice textarea:focus { border-color: #38bdf8; }
+        .coding-practice .btn-run {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .coding-practice .btn-run:hover { background: #7dd3fc; transform: translateY(-2px); }
+
+        @media (max-width: 992px) {
+            .layout-container { flex-direction: column; }
+            .sidebar { width: 100%; position: static; margin-bottom: 30px; }
+            .main-content { padding: 30px; }
+            .practice-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="python_index.html"><img src="Kvj logo.jpeg" alt="KVJ Analytics Logo" class="kvj-logo-img"></a>
+        <a href="roadmap.html" class="logout-btn">EXIT</a>
+    </nav>
+
+    <header class="header-banner">
+        <h1>MODULE 3 – INPUT AND OUTPUT OPERATIONS</h1>
+    </header>
+
+    <div class="layout-container">
+        <nav class="sidebar">
+            <h3>Module Path</h3>
+            <a href="Module-1.html">01 Foundation</a>
+            <a href="Module-2.html">02 Flow Control</a>
+            <a href="Module-3.html" class="active">03 I/O Operations</a>
+            <a href="Module-4.html">04 Documentation</a>
+            <a href="Module-5.html">05 Error Handling</a>
+            <a href="Module-6.html">06 Built-in Modules</a>
+            
+            <h3 style="margin-top:25px;">Navigation</h3>
+            <a href="roadmap.html" style="background: #f8f9fa;">&larr; Return to Roadmap</a>
+        </nav>        <main class="main-content">
+            <div class="section-header">
+                <h2>MODULE 3 – INPUT AND OUTPUT OPERATIONS</h2>
+                <p style="font-weight: 600; color: var(--secondary-blue);">Python Certification Course – Module 3</p>
+            </div>
+            
+            <h3>Introduction to Input and Output</h3>
+            <p>In previous modules, programs used fixed values inside the code.</p>
+            <p>However, real-world programs must:</p>
+            <ul>
+                <li>Accept information from users</li>
+                <li>Read data from files</li>
+                <li>Store results permanently</li>
+                <li>Display information clearly</li>
+            </ul>
+            <p>This interaction between a program and external sources is called Input and Output (I/O).</p>
+            <p>Examples in business applications:</p>
+            <ul>
+                <li>Entering customer information</li>
+                <li>Recording sales transactions</li>
+                <li>Reading financial records from files</li>
+                <li>Generating reports</li>
+            </ul>
+            <p>Python supports two main types of input/output:</p>
+            <p>1. Console Input and Output</p>
+            <p>2. File Input and Output</p>
+
+            <div class="section-header">
+                <h2>3.1 Console Input and Output</h2>
+            </div>
+            <p>Console input allows a program to receive information directly from the user.</p>
+            <p>Console output allows the program to display results to the user.</p>
+
+            <h3>Reading Input from Console</h3>
+            <p>The input() function reads user input from the keyboard.</p>
+            <p><strong>Example</strong></p>
+<pre>
+name = <span class="function">input</span>(<span class="string">"Enter your name: "</span>)
+<span class="function">print</span>(<span class="string">"Hello"</span>, name)
+</pre>
+            <p><strong>Sample Run</strong></p>
+            <div class="output-box" style="background: #f8fafc; color: #1e293b; border-color: #e2e8f0;">
+                Enter your name: Rahul<br>
+                Hello Rahul
+            </div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                The program waits for the user to type a value.<br>
+                The value entered by the user is stored in the variable name.<br><br>
+                input() always returns string data.
+            </div>
+
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What special function does Python provide to read text directly from the user's keyboard?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-1" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(1, 'input()')">Check Answer</button>
+                </div>
+                <div id="feedback-1" class="feedback"></div>
+            </div>
+
+            <h3>Converting Input Values</h3>
+            <p>Since input() returns a string, we must convert it if we want to perform calculations.</p>
+            <p><strong>Example</strong></p>
+<pre>
+age = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Enter your age: "</span>))
+<span class="function">print</span>(age + <span class="number">5</span>)
+</pre>
+            <p><strong>Sample Run</strong></p>
+            <div class="output-box" style="background: #f8fafc; color: #1e293b; border-color: #e2e8f0;">
+                Enter your age: 20<br>
+                25
+            </div>
+            <div class="interaction-box">
+                int() converts it into an integer, allowing arithmetic operations.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which Python function is used to convert a value into an <strong>integer</strong>?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-301" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(301, 'int()')">Check Answer</button>
+                </div>
+                <div id="feedback-301" class="feedback"></div>
+            </div>
+
+            <h3>Multiple Inputs</h3>
+            <p>Programs can accept several inputs from users.</p>
+            <p><strong>Example</strong></p>
+<pre>
+price = <span class="function">float</span>(<span class="function">input</span>(<span class="string">"Enter product price: "</span>))
+quantity = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Enter quantity sold: "</span>))
+total_sales = price * quantity
+<span class="function">print</span>(<span class="string">"Total Sales:"</span>, total_sales)
+</pre>
+            <p><strong>Sample Run</strong></p>
+            <div class="output-box" style="background: #f8fafc; color: #1e293b; border-color: #e2e8f0;">
+                Enter product price: 50<br>
+                Enter quantity sold: 10<br>
+                Total Sales: 500
+            </div>
+            <div class="interaction-box">
+                <strong>Business example:</strong><br>
+                This can represent sales transaction calculations.
+            </div>
+
+            <h3>Formatted Output using format()</h3>
+            <p>The format() function allows structured output.</p>
+            <p><strong>Example</strong></p>
+<pre>
+name = <span class="string">"Rahul"</span>
+sales = <span class="number">5000</span>
+<span class="function">print</span>(<span class="string">"Employee: {}, Sales: {}"</span>.<span class="function">format</span>(name, sales))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Employee: Rahul, Sales: 5000</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                {} are placeholders that are replaced by values passed to format().
+            </div>
+
+            <h3>f-Strings (Modern Method)</h3>
+            <p>A simpler way to format output is using f-strings.</p>
+            <p><strong>Example</strong></p>
+<pre>
+name = <span class="string">"Rahul"</span>
+sales = <span class="number">5000</span>
+<span class="function">print</span>(<span class="string">f"Employee: {name}, Sales: {sales}"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Employee: Rahul, Sales: 5000</div>
+            <div class="interaction-box">
+                This method is commonly used in modern Python programs.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What is the shorthand name for **Formatted String Literals** (starting with f)?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-302" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(302, 'f-strings')">Check Answer</button>
+                </div>
+                <div id="feedback-302" class="feedback"></div>
+            </div>
+
+            <!-- Coding Practice 1 -->
+            <div class="coding-practice">
+                <h3>Coding Practice: I/O and Strings</h3>
+                <p><strong>Challenge:</strong> Write a program that takes a name using <code>input()</code> and prints a greeting using an <strong>f-string</strong>.</p>
+                <textarea id="coding-ans-1" placeholder="user_name = ...
+print(f'...')"></textarea>
+                <button class="btn-run" onclick="checkCodingPractice(1, [
+                    {type: 'regex', value: 'input\\s*\\(', message: 'Use input() to receive the name'},
+                    {type: 'regex', value: 'f[\'&quot;][\\s\\S]*?\\{\\w+[\\s\\S]*?\\}[\\s\\S]*?[\'&quot;]', message: 'Create an f-string that includes a variable inside {}'},
+                    {type: 'regex', value: 'print\\s*\\([\\s\\S]*?\\)', message: 'Print the greeting'}
+                ])">Run &amp; Check</button>
+                <div id="coding-feedback-1" class="feedback"></div>
+            </div>
+
+            <h3>Command-Line Arguments</h3>
+            <p>Sometimes programs receive input when the script is executed.</p>
+            <p>This is done using the <strong>sys</strong> module.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">import</span> sys
+<span class="function">print</span>(sys.argv)
+</pre>
+            <p><strong>If executed as:</strong></p>
+            <code>python script.py Rahul 25</code>
+            <p><strong>Output</strong></p>
+            <div class="output-box">['script.py', 'Rahul', '25']</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                sys.argv stores command-line inputs in a list.<br>
+                First element &rarr; script name<br>
+                Remaining elements &rarr; user inputs
+            </div>
+
+            <div class="section-header">
+                <h2>3.2 File Input and Output</h2>
+            </div>
+            <p>File handling allows programs to store and retrieve data permanently.</p>
+            <p>Examples in business systems:</p>
+            <ul>
+                <li>Storing transaction records</li>
+                <li>Saving reports</li>
+                <li>Reading financial datasets</li>
+            </ul>
+
+            <h3>Opening a File</h3>
+            <p>Files must be opened before reading or writing.</p>
+            <p><strong>Example</strong></p>
+<pre>
+file = <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"w"</span>)
+file.<span class="function">close</span>()
+</pre>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                "w" means write mode.<br>
+                If the file does not exist, Python creates it.
+            </div>
+
+            <h3>Writing to a File</h3>
+            <p><strong>Example</strong></p>
+<pre>
+file = <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"w"</span>)
+file.<span class="function">write</span>(<span class="string">"Monthly Sales Report"</span>)
+file.<span class="function">close</span>()
+</pre>
+            <p><strong>File Content</strong></p>
+            <div class="output-box">Monthly Sales Report</div>
+            <div class="interaction-box">
+                write() stores text inside the file.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which mode character is used to <strong>write</strong> to a file (overwriting existing content)?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-303" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(303, 'w')">Check Answer</button>
+                </div>
+                <div id="feedback-303" class="feedback"></div>
+            </div>
+
+            <h3>Reading from a File</h3>
+            <p><strong>Example</strong></p>
+<pre>
+file = <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r"</span>)
+content = file.<span class="function">read</span>()
+<span class="function">print</span>(content)
+file.<span class="function">close</span>()
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Monthly Sales Report</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                "r" means read mode.<br>
+                read() retrieves file content.
+            </div>
+
+            <h3>Appending to a File</h3>
+            <p>Append mode allows adding data without deleting existing data.</p>
+            <p><strong>Example</strong></p>
+<pre>
+file = <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"a"</span>)
+file.<span class="function">write</span>(<span class="string">"\nTotal Revenue: 50000"</span>)
+file.<span class="function">close</span>()
+</pre>
+            <p><strong>Updated File</strong></p>
+            <div class="output-box">
+                Monthly Sales Report<br>
+                Total Revenue: 50000
+            </div>
+            <div class="interaction-box">
+                "a" mode adds new content to the end of the file.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which mode character is used to **append** data to the end of a file?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-304" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(304, 'a')">Check Answer</button>
+                </div>
+                <div id="feedback-304" class="feedback"></div>
+            </div>
+
+            <h3>Using with Statement (Best Practice)</h3>
+            <p>A better method is using with.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> file:
+    content = file.<span class="function">read</span>()
+    <span class="function">print</span>(content)
+</pre>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                The with statement automatically closes the file, preventing errors.
+            </div>
+
+            <h3>Checking if a File Exists</h3>
+            <p>Before reading a file, it is safer to check if it exists.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">import</span> os
+<span class="function">print</span>(os.path.exists(<span class="string">"data.txt"</span>))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">True</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                This helps prevent FileNotFoundError.
+            </div>
+
+            <h3>Deleting a File</h3>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">import</span> os
+os.<span class="function">remove</span>(<span class="string">"data.txt"</span>)
+</pre>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                os.remove() permanently deletes the file.<br>
+                Programs should always check if the file exists before deleting.
+            </div>
+
+            <div class="section-header">
+                <h2>Integrated Business Example</h2>
+            </div>
+            <p>Example: Storing sales data.</p>
+<pre>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"sales.txt"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> file:
+    file.<span class="function">write</span>(<span class="string">"5000\n7000\n9000"</span>)
+
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"sales.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> file:
+    data = file.<span class="function">read</span>()
+
+<span class="function">print</span>(<span class="string">"Sales Data:"</span>)
+<span class="function">print</span>(data)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">
+                Sales Data:<br>
+                5000<br>
+                7000<br>
+                9000
+            </div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                The program:<br>
+                1. Writes sales data to a file<br>
+                2. Reads the stored data<br>
+                3. Displays it to the user<br><br>
+                This simulates basic data storage for business transactions.
+            </div>
+
+            <!-- Quiz CTA -->
+            <div class="quiz-cta">
+                <h3>I/O Mastery.</h3>
+                <p>Test your knowledge on console and file operations in Python.</p>
+                <a href="module_quiz.html?mod=3" class="btn-start-quiz">Start Module 3 Quiz &rarr;</a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        © 2026 KVJ Analytics | Professional Python Certification Path
+    </footer>
+    <script>
+        function checkPracticeAnswer(id, correctAns) {
+            const userAns = document.getElementById(`practice-ans-${id}`).value.trim().toLowerCase();
+            const feedback = document.getElementById(`feedback-${id}`);
+            
+            const cleanCorrect = correctAns.toLowerCase().replace(/\s/g, '');
+            const cleanUser = userAns.replace(/\s/g, '');
+
+            if (cleanUser === cleanCorrect || cleanUser === cleanCorrect.replace('()', '')) {
+                feedback.innerHTML = "✓ Correct! Well done.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Incorrect. Try again! Hint: It's the function used to get user data.";
+                feedback.className = "feedback wrong";
+            }
+        }
+
+        function checkCodingPractice(id, requirements) {
+            const userCode = document.getElementById(`coding-ans-${id}`).value.trim();
+            const feedback = document.getElementById(`coding-feedback-${id}`);
+            const codeNoComments = userCode.replace(/#.*$/gm, '').trim();
+            
+            let isCorrect = true;
+            let messages = [];
+            let captures = [];
+
+            requirements.forEach(req => {
+                if (req.type === 'regex') {
+                    const regex = new RegExp(req.value, req.flags || '');
+                    const match = codeNoComments.match(regex);
+                    if (!match) {
+                        isCorrect = false;
+                        messages.push(req.message || "Incorrect logic");
+                    } else if (match) {
+                        for (let i = 1; i < match.length; i++) {
+                            captures.push(match[i]);
+                        }
+                    }
+                } else if (req.type === 'consistency') {
+                    const var1 = captures[req.variables[0]];
+                    const var2 = captures[req.variables[1]];
+                    if (var1 === undefined || var2 === undefined || var1 !== var2) {
+                        isCorrect = false;
+                        messages.push(req.message || "Variable inconsistency");
+                    }
+                }
+            });
+
+            if (isCorrect) {
+                feedback.innerHTML = "✓ Correct! Code looks good.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Error: " + messages[0];
+                feedback.className = "feedback wrong";
+            }
+        }
+    </script>
+</body>
+</html>

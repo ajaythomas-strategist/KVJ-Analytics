@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Documentation | KVJ Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a5f;
+            --secondary-blue: #008eab;
+            --bg-light: #f6f8fb;
+            --text-main: #1d1d1f;
+            --text-muted: #4b5563;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Top Nav */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+        }
+
+        .kvj-logo-img { max-height: 35px; width: auto; }
+
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            padding: 8px 18px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+            transition: opacity 0.3s;
+            text-transform: uppercase;
+        }
+
+        /* Header Banner */
+        .header-banner { 
+            background: var(--primary-blue); 
+            color: white; 
+            padding: 120px 20px 60px; 
+            text-align: center; 
+        }
+        .header-banner h1 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px; 
+            font-weight: 900; 
+            letter-spacing: -1px; 
+            text-transform: uppercase;
+        }
+
+        /* Layout Container */
+        .layout-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 40px auto;
+            gap: 40px;
+            width: 95%;
+            padding-bottom: 60px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 100px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            height: fit-content;
+        }
+
+        .sidebar h3 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px; 
+            color: var(--secondary-blue); 
+            text-transform: uppercase; 
+            margin-bottom: 20px; 
+            border-bottom: 2px solid var(--bg-light); 
+            padding-bottom: 10px; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+        }
+
+        .sidebar a { 
+            display: flex; 
+            align-items: center;
+            padding: 12px 15px; 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 14px; 
+            font-weight: 500;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .sidebar a.active { 
+            color: var(--primary-blue); 
+            font-weight: 700; 
+            background: #f0f7ff; 
+            border-left: 4px solid var(--primary-blue); 
+        }
+
+        .sidebar a:hover:not(.active) {
+            background: #f8fafc;
+            color: var(--primary-blue);
+        }
+
+        /* Main Content Area */
+        .main-content { 
+            flex: 1;
+            background: #ffffff; 
+            border: 1px solid var(--border-color);
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.04);
+        }
+
+        .section-header { 
+            margin-bottom: 30px; 
+            border-bottom: 3px solid var(--bg-light); 
+            padding-bottom: 15px; 
+        }
+        .section-header h2 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue); 
+            font-size: 28px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: -0.5px;
+        }
+
+        /* Content Styles */
+        p { line-height: 1.8; margin-bottom: 25px; color: #334155; font-size: 17px; }
+        strong { color: var(--primary-blue); font-weight: 700; }
+        h1, h2, h3 { color: var(--primary-blue); font-weight: 700; }
+        
+        .interaction-box strong { color: var(--secondary-blue); }
+        
+        .interaction-box { 
+            background-color: #f7f9fc; 
+            border-left: 5px solid var(--secondary-blue); 
+            padding: 25px; 
+            margin: 30px 0; 
+            border-radius: 0 10px 10px 0;
+            font-size: 15px;
+        }
+
+        h3 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue); 
+            margin: 40px 0 20px; 
+            font-size: 22px; 
+            font-weight: 700; 
+        }
+
+        /* Code Block Styling */
+        pre { 
+            background: #1e293b; 
+            color: #f8fafc; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            font-family: 'Fira Code', 'Consolas', monospace; 
+            font-size: 14px; 
+            margin: 20px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .output-box { 
+            background-color: #ecfeff; 
+            border: 1px solid #cffafe; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-family: monospace; 
+            font-size: 14px; 
+            margin-bottom: 30px; 
+            color: var(--secondary-blue); 
+            font-weight: 700; 
+            display: flex;
+            align-items: center;
+        }
+        .output-box::before { content: "> Result: "; margin-right: 10px; opacity: 0.6; }
+
+        /* Keywords */
+        .keyword { color: #f472b6; }
+        .function { color: #4ade80; }
+        .string { color: #fbbf24; }
+        .comment { color: #94a3b8; }
+
+        /* Quiz CTA */
+        .quiz-cta {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #008eab 100%);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 142, 171, 0.2);
+        }
+        .quiz-cta h3 { color: white; margin-top: 0; font-size: 24px; border: none; padding: 0; }
+        .quiz-cta p { color: rgba(255,255,255,0.8); margin-bottom: 25px; }
+        .btn-start-quiz {
+            display: inline-block;
+            background: #ffffff;
+            color: var(--primary-blue);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .btn-start-quiz:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: #f8fafc;
+        }
+
+        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 13px; border-top: 1px solid var(--border-color); margin-top: 40px; }
+        
+        /* Practice Space Styling */
+        .practice-space {
+            background: #ffffff;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 15px rgba(0, 142, 171, 0.1);
+        }
+        .practice-space h3 { margin-top: 0; color: var(--secondary-blue); font-size: 20px; }
+        .practice-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .practice-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .practice-box button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+        .practice-box button:hover { background: var(--secondary-blue); }
+        .feedback {
+            margin-top: 15px;
+            font-weight: 700;
+            display: none;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .feedback.correct { color: #065f46; background: #ecfdf5; display: block; border: 1px solid #a7f3d0; }
+        .feedback.wrong { color: #991b1b; background: #fef2f2; display: block; border: 1px solid #fecaca; }
+
+        /* Coding Practice Styling */
+        .coding-practice {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            color: #f8fafc;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .coding-practice h3 { margin-top: 0; color: #7dd3fc; font-size: 22px; font-weight: 700; }
+        .coding-practice p { color: #e2e8f0; font-size: 16px; margin-bottom: 20px; }
+        .coding-practice strong { color: #f8fafc; font-weight: 800; }
+        .coding-practice textarea {
+            width: 100%;
+            height: 120px;
+            background: #0f172a;
+            color: #38bdf8;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            resize: vertical;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        .coding-practice textarea:focus { border-color: #38bdf8; }
+        .coding-practice .btn-run {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .coding-practice .btn-run:hover { background: #7dd3fc; transform: translateY(-2px); }
+
+        @media (max-width: 992px) {
+            .layout-container { flex-direction: column; }
+            .sidebar { width: 100%; position: static; margin-bottom: 30px; }
+            .main-content { padding: 30px; }
+            .practice-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="python_index.html"><img src="Kvj logo.jpeg" alt="KVJ Analytics Logo" class="kvj-logo-img"></a>
+        <a href="roadmap.html" class="logout-btn">EXIT</a>
+    </nav>
+
+    <header class="header-banner">
+        <h1>MODULE 4 – CODE DOCUMENTATION AND FUNCTIONS</h1>
+    </header>
+
+    <div class="layout-container">
+        <nav class="sidebar">
+            <h3>Module Path</h3>
+            <a href="Module-1.html">01 Foundation</a>
+            <a href="Module-2.html">02 Flow Control</a>
+            <a href="Module-3.html">03 I/O Operations</a>
+            <a href="Module-4.html" class="active">04 Documentation</a>
+            <a href="Module-5.html">05 Error Handling</a>
+            <a href="Module-6.html">06 Built-in Modules</a>
+            
+            <h3 style="margin-top:25px;">Navigation</h3>
+            <a href="roadmap.html" style="background: #f8f9fa;">&larr; Return to Roadmap</a>
+        </nav>
+
+        <main class="main-content">
+            <div class="section-header">
+                <h2>MODULE 4 – CODE DOCUMENTATION AND FUNCTIONS</h2>
+                <p style="font-weight: 600; color: var(--secondary-blue);">Python Certification Course – Module 4</p>
+            </div>
+            
+            <h3>Introduction to Code Structure</h3>
+            <p>As programs become larger, writing code in a structured and organized way becomes very important.</p>
+            <p>Good programs should be:</p>
+            <ul>
+                <li>Easy to read</li>
+                <li>Easy to maintain</li>
+                <li>Properly documented</li>
+                <li>Reusable</li>
+            </ul>
+            <p>Professional developers write code so that other developers can understand it easily.</p>
+            <p>Two important practices help achieve this:</p>
+            <p>Code Documentation</p>
+            <p>2️⃣ Functions</p>
+
+            <div class="section-header">
+                <h2>4.1 Code Documentation</h2>
+            </div>
+            <p>Documentation explains what the code is doing.</p>
+            <p>It helps:</p>
+            <ul>
+                <li>Team members understand the program</li>
+                <li>Maintain large systems</li>
+                <li>Debug errors faster</li>
+                <li>Improve readability</li>
+            </ul>
+            <p>Python supports documentation using:</p>
+            <ul>
+                <li>Indentation</li>
+                <li>White space</li>
+                <li>Comments</li>
+                <li>Docstrings</li>
+            </ul>
+
+            <h3>Indentation</h3>
+            <p>Python uses indentation to define code blocks.</p>
+            <p>Incorrect indentation leads to errors.</p>
+            <p><strong>Example</strong></p>
+<pre>
+marks = <span class="number">70</span>
+<span class="keyword">if</span> marks >= <span class="number">50</span>:
+    <span class="function">print</span>(<span class="string">"Pass"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Pass</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                The indented line belongs to the if block.<br>
+                Python does not use braces { } like other languages.<br>
+                Instead, indentation defines the structure.
+            </div>
+
+            <h3>Incorrect Indentation</h3>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">if</span> marks >= <span class="number">50</span>:
+<span class="function">print</span>(<span class="string">"Pass"</span>)
+</pre>
+            <p><strong>Error</strong></p>
+            <div class="output-box" style="color: #dc2626; border-color: #fecaca; background: #fff1f2;">IndentationError</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                Python requires consistent indentation to determine program structure.
+            </div>
+
+            <h3>White Space</h3>
+            <p>White space improves code readability.</p>
+            <p><strong>Bad style</strong></p>
+            <code>x=10+5*2</code>
+            <p><strong>Better style</strong></p>
+<pre>
+x = <span class="number">10</span> + <span class="number">5</span> * <span class="number">2</span>
+<span class="function">print</span>(x)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">20</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                Spaces around operators make the code cleaner and easier to read.
+            </div>
+
+            <h3>Comments</h3>
+            <p>Comments are used to explain code logic.</p>
+            <p>Python ignores comments during execution.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="comment"># Calculate total sales</span>
+sales = [<span class="number">5000</span>, <span class="number">7000</span>, <span class="number">6000</span>]
+total = <span class="function">sum</span>(sales)
+<span class="function">print</span>(total)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">18000</div>
+            <div class="interaction-box">
+                It helps other programmers understand the purpose of the code.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which symbol is used to start a **single-line comment** in Python?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-401" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(401, '#')">Check Answer</button>
+                </div>
+                <div id="feedback-401" class="feedback"></div>
+            </div>
+
+            <h3>Docstrings</h3>
+            <p>Docstrings describe what a function does.</p>
+            <p>They are written using triple quotes.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">def</span> <span class="function">square</span>(n):
+    <span class="string">"""Return the square of a number"""</span>
+    <span class="keyword">return</span> n * n
+
+<span class="function">print</span>(square(<span class="number">5</span>))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">25</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                The triple quotes """ """ store documentation for the function.
+            </div>
+
+            <h3>Accessing Docstrings</h3>
+            <p>Docstrings can be accessed programmatically.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="function">print</span>(square.__doc__)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Return the square of a number</div>
+            <div class="interaction-box">
+                This allows Python tools to generate documentation automatically.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What are the triple-quoted strings used to document functions called?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-402" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(402, 'docstrings')">Check Answer</button>
+                </div>
+                <div id="feedback-402" class="feedback"></div>
+            </div>
+
+            <h3>Using pydoc for Documentation</h3>
+            <p>Python provides a tool called pydoc.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">import</span> pydoc
+<span class="function">print</span>(pydoc.render_doc(square))
+</pre>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                pydoc automatically generates documentation for functions, modules, and classes.<br>
+                This is useful in large professional projects.
+            </div>
+
+            <div class="section-header">
+                <h2>4.2 Functions</h2>
+            </div>
+            <p>Functions organize code into reusable blocks.</p>
+            <p>Benefits of functions:</p>
+            <ul>
+                <li>Avoid repeating code</li>
+                <li>Improve readability</li>
+                <li>Simplify debugging</li>
+                <li>Make programs modular</li>
+            </ul>
+
+            <h3>Defining a Function</h3>
+            <p>Functions are defined using the def keyword.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">def</span> <span class="function">greet</span>():
+    <span class="function">print</span>(<span class="string">"Welcome to the finance system"</span>)
+
+greet()
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Welcome to the finance system</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                def defines a function.<br>
+                greet() calls the function.
+            </div>
+
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which keyword is used in Python to define a new function?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-1" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(1, 'def')">Check Answer</button>
+                </div>
+                <div id="feedback-1" class="feedback"></div>
+            </div>
+
+            <h3>Function with Parameters</h3>
+            <p>Functions can accept input values called parameters.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">def</span> <span class="function">calculate_sales</span>(price, quantity):
+    total = price * quantity
+    <span class="function">print</span>(<span class="string">"Total Sales:"</span>, total)
+
+calculate_sales(<span class="number">50</span>, <span class="number">10</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Total Sales: 500</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                price and quantity are parameters.<br>
+                They allow the function to work with different inputs.
+            </div>
+
+            <h3>return Statement</h3>
+            <p>Functions can return values using return.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">def</span> <span class="function">profit</span>(revenue, cost):
+    <span class="keyword">return</span> revenue - cost
+
+result = profit(<span class="number">10000</span>, <span class="number">7000</span>)
+<span class="function">print</span>(<span class="string">"Profit:"</span>, result)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Profit: 3000</div>
+            <div class="interaction-box">
+                The function calculates profit and returns the result to the calling program.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which statement is used to send a value **back** from a function to the caller?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-403" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(403, 'return')">Check Answer</button>
+                </div>
+                <div id="feedback-403" class="feedback"></div>
+            </div>
+
+            <!-- Coding Practice 1 -->
+            <div class="coding-practice">
+                <h3>Coding Practice: Functions</h3>
+                <p><strong>Challenge:</strong> Define a function called <code>multiply</code> that takes two parameters, <code>a</code> and <code>b</code>, and <strong>returns</strong> their product.</p>
+                <textarea id="coding-ans-1" placeholder="def multiply(a, b):
+    ..."></textarea>
+                <button class="btn-run" onclick="checkCodingPractice(1, [
+                    {type: 'regex', value: 'def\\s+multiply\\s*\\(\\s*a\\s*,\\s*b\\s*\\)\\s*:', message: 'Define the function as multiply(a, b)'},
+                    {type: 'regex', value: 'a\\s*\\*\\s*b|b\\s*\\*\\s*a', message: 'Multiply parameters a and b'},
+                    {type: 'regex', value: 'return[\\s\\(][\\s\\S]*?a[\\s\\S]*?\\*[\\s\\S]*?b|return[\\s\\(][\\s\\S]*?b[\\s\\S]*?\\*[\\s\\S]*?a|result\\s*=|product\\s*=', message: 'Return the product of a and b'}
+                ])">Run &amp; Check</button>
+                <div id="coding-feedback-1" class="feedback"></div>
+            </div>
+
+            <h3>Default Parameters</h3>
+            <p>Functions can have default values.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">def</span> <span class="function">greet</span>(name=<span class="string">"Customer"</span>):
+    <span class="function">print</span>(<span class="string">"Welcome"</span>, name)
+
+greet()
+greet(<span class="string">"Rahul"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Welcome Customer<br>Welcome Rahul</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                If no argument is provided, Python uses the default value.
+            </div>
+
+            <h3>pass Statement in Functions</h3>
+            <p>Sometimes we define a function but do not implement it yet.</p>
+            <p><strong>Example</strong></p>
+<pre>
+<span class="keyword">def</span> <span class="function">future_feature</span>():
+    <span class="keyword">pass</span>
+
+<span class="function">print</span>(<span class="string">"Function created successfully"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Function created successfully</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                pass prevents syntax errors when a function body is empty.
+            </div>
+
+            <div class="section-header">
+                <h2>Integrated Business Example</h2>
+            </div>
+            <p>Example: Calculating average sales.</p>
+<pre>
+<span class="keyword">def</span> <span class="function">calculate_average_sales</span>(sales_list):
+    <span class="string">"""Return the average sales value"""</span>
+    
+    total = <span class="function">sum</span>(sales_list)
+    average = total / <span class="function">len</span>(sales_list)
+    
+    <span class="keyword">return</span> average
+
+sales = [<span class="number">5000</span>, <span class="number">7000</span>, <span class="number">9000</span>]
+avg = calculate_average_sales(sales)
+<span class="function">print</span>(<span class="string">"Average Sales:"</span>, avg)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Average Sales: 7000.0</div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                This program demonstrates:<br>
+                • Function creation<br>
+                • Parameters<br>
+                • Return values<br>
+                • Documentation using docstrings
+            </div>
+
+            <!-- Quiz CTA -->
+            <div class="quiz-cta">
+                <h3>Documentation Standardized.</h3>
+                <p>Test your knowledge on documentation and functions in Python.</p>
+                <a href="module_quiz.html?mod=4" class="btn-start-quiz">Start Module 4 Quiz &rarr;</a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        © 2026 KVJ Analytics | Professional Python Certification Path
+    </footer>
+    <script>
+        function checkPracticeAnswer(id, correctAns) {
+            const userAns = document.getElementById(`practice-ans-${id}`).value.trim().toLowerCase();
+            const feedback = document.getElementById(`feedback-${id}`);
+            
+            if (userAns === correctAns.toLowerCase()) {
+                feedback.innerHTML = "✓ Correct! Well done.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Incorrect. Try again! Hint: It's the 3-letter keyword used to start a function definition.";
+                feedback.className = "feedback wrong";
+            }
+        }
+
+        function checkCodingPractice(id, requirements) {
+            const userCode = document.getElementById(`coding-ans-${id}`).value.trim();
+            const feedback = document.getElementById(`coding-feedback-${id}`);
+            const codeNoComments = userCode.replace(/#.*$/gm, '').trim();
+            
+            let isCorrect = true;
+            let messages = [];
+            let captures = [];
+
+            requirements.forEach(req => {
+                if (req.type === 'regex') {
+                    const regex = new RegExp(req.value, req.flags || '');
+                    const match = codeNoComments.match(regex);
+                    if (!match) {
+                        isCorrect = false;
+                        messages.push(req.message || "Incorrect logic");
+                    } else if (match) {
+                        for (let i = 1; i < match.length; i++) {
+                            captures.push(match[i]);
+                        }
+                    }
+                } else if (req.type === 'consistency') {
+                    const var1 = captures[req.variables[0]];
+                    const var2 = captures[req.variables[1]];
+                    if (var1 === undefined || var2 === undefined || var1 !== var2) {
+                        isCorrect = false;
+                        messages.push(req.message || "Variable inconsistency");
+                    }
+                }
+            });
+
+            if (isCorrect) {
+                feedback.innerHTML = "✓ Correct! Function logic verified.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Error: " + messages[0];
+                feedback.className = "feedback wrong";
+            }
+        }
+    </script>
+</body>
+</html>

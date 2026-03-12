@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Error Handling | KVJ Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a5f;
+            --secondary-blue: #008eab;
+            --bg-light: #f6f8fb;
+            --text-main: #1d1d1f;
+            --text-muted: #4b5563;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+            --error-red: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+        }
+
+        .kvj-logo-img { max-height: 35px; width: auto; }
+
+        .header-banner { 
+            background: var(--primary-blue); 
+            color: white; 
+            padding: 120px 20px 60px; 
+            text-align: center; 
+        }
+        .header-banner h1 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px; 
+            font-weight: 900; 
+            text-transform: uppercase;
+        }
+
+        .layout-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 40px auto;
+            gap: 40px;
+            width: 95%;
+            padding-bottom: 60px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 100px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            height: fit-content;
+        }
+
+        .sidebar a { 
+            display: flex; 
+            padding: 12px 15px; 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 14px; 
+            margin-bottom: 5px;
+            border-radius: 8px;
+        }
+
+        .sidebar a.active { 
+            color: var(--primary-blue); 
+            font-weight: 700; 
+            background: #f0f7ff; 
+            border-left: 4px solid var(--primary-blue); 
+        }
+
+        .main-content { 
+            flex: 1;
+            background: #ffffff; 
+            border: 1px solid var(--border-color);
+            padding: 60px;
+            border-radius: 12px;
+        }
+
+        .section-header { 
+            margin-bottom: 30px; 
+            border-bottom: 3px solid var(--bg-light); 
+            padding-bottom: 15px; 
+        }
+        .section-header h2 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue); 
+            font-size: 28px; 
+            font-weight: 800; 
+        }
+
+        pre { 
+            background: #1e293b; 
+            color: #f8fafc; 
+            padding: 20px; 
+            border-radius: 8px; 
+            font-family: monospace; 
+            font-size: 14px; 
+            margin: 20px 0;
+        }
+        .output-box { 
+            background-color: #fef2f2; 
+            border: 1px solid #fee2e2; 
+            padding: 15px; 
+            border-radius: 6px; 
+            color: var(--error-red); 
+            font-weight: 700;
+        }
+
+        .quiz-cta {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #008eab 100%);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+        .btn-start-quiz {
+            display: inline-block;
+            background: white;
+            color: var(--primary-blue);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 800;
+        }
+        /* Content Styles */
+        p { line-height: 1.8; margin-bottom: 25px; color: #334155; font-size: 17px; }
+        strong { color: var(--primary-blue); font-weight: 700; }
+        h1, h2, h3 { color: var(--primary-blue); font-weight: 700; }
+        
+        .interaction-box strong { color: var(--secondary-blue); }
+
+        /* Practice Space Styling */
+        .practice-space {
+            background: #ffffff;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 15px rgba(0, 142, 171, 0.1);
+        }
+        .practice-space h3 { margin-top: 0; color: var(--secondary-blue); font-size: 20px; }
+        .practice-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .practice-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .practice-box button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+        .practice-box button:hover { background: var(--secondary-blue); }
+        .feedback {
+            margin-top: 15px;
+            font-weight: 700;
+            display: none;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .feedback.correct { color: #065f46; background: #ecfdf5; display: block; border: 1px solid #a7f3d0; }
+        .feedback.wrong { color: #991b1b; background: #fef2f2; display: block; border: 1px solid #fecaca; }
+
+        .feedback.correct { color: #065f46; background: #ecfdf5; display: block; border: 1px solid #a7f3d0; }
+        .feedback.wrong { color: #991b1b; background: #fef2f2; display: block; border: 1px solid #fecaca; }
+
+        /* Coding Practice Styling */
+        .coding-practice {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            color: #f8fafc;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .coding-practice h3 { margin-top: 0; color: #7dd3fc; font-size: 22px; font-weight: 700; }
+        .coding-practice p { color: #e2e8f0; font-size: 16px; margin-bottom: 20px; }
+        .coding-practice strong { color: #f8fafc; font-weight: 800; }
+        .coding-practice textarea {
+            width: 100%;
+            height: 120px;
+            background: #0f172a;
+            color: #38bdf8;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            resize: vertical;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        .coding-practice textarea:focus { border-color: #38bdf8; }
+        .coding-practice .btn-run {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .coding-practice .btn-run:hover { background: #7dd3fc; transform: translateY(-2px); }
+
+        @media (max-width: 992px) {
+            .layout-container { flex-direction: column; }
+            .sidebar { width: 100%; position: static; margin-bottom: 30px; }
+            .main-content { padding: 30px; }
+            .practice-box { flex-direction: column; }
+        }
+
+        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 13px; border-top: 1px solid var(--border-color); margin-top: 40px; }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="python_index.html"><img src="Kvj logo.jpeg" alt="KVJ Logo" class="kvj-logo-img"></a>
+        <a href="roadmap.html" style="background:#dc2626; color:white; padding:8px 18px; border-radius:6px; text-decoration:none; font-size:12px; font-weight:700;">EXIT</a>
+    </nav>
+    <header class="header-banner"><h1>MODULE 5: ERROR HANDLING</h1></header>
+    <div class="layout-container">
+        <nav class="sidebar">
+            <a href="Module-1.html">01 Foundation</a>
+            <a href="Module-2.html">02 Flow Control</a>
+            <a href="Module-3.html">03 I/O Operations</a>
+            <a href="Module-4.html">04 Documentation</a>
+            <a href="Module-5.html" class="active">05 Error Handling</a>
+            <a href="Module-6.html">06 Built-in Modules</a>
+            <a href="roadmap.html" style="margin-top:20px; background:#f8f9fa;">&larr; Return to Roadmap</a>
+        </nav>
+        <main class="main-content">
+            <div class="section-header">
+                <h2>MODULE 5 – TROUBLESHOOTING AND ERROR HANDLING</h2>
+                <p style="font-weight: 600; color: var(--secondary-blue);">Python Certification Course – Module 5</p>
+            </div>
+            
+            <div class="section-header">
+                <h2>Introduction to Errors in Programming</h2>
+            </div>
+            <p>In real-world programming, errors are unavoidable. Even experienced developers encounter errors while building software systems.</p>
+            <p>A good programmer must be able to:</p>
+            <ul>
+                <li>Identify errors</li>
+                <li>Understand why they occur</li>
+                <li>Fix them efficiently</li>
+                <li>Prevent programs from crashing</li>
+            </ul>
+            <div class="interaction-box">
+                <strong>Business Context:</strong><br>
+                • A financial system should not crash if a user enters invalid data<br>
+                • A sales program should handle incorrect inputs safely<br>
+                • A reporting system must detect problems before processing files
+            </div>
+            <p>Python provides tools for debugging and handling errors gracefully.</p>
+
+            <div class="section-header">
+                <h2>5.1 Types of Errors</h2>
+            </div>
+            <p>Python programs can encounter three main types of errors:</p>
+            <ol>
+                <li><strong>Syntax Errors</strong></li>
+                <li><strong>Runtime Errors</strong></li>
+                <li><strong>Logic Errors</strong></li>
+            </ol>
+
+            <h3>Syntax Errors</h3>
+            <p>Syntax errors occur when Python code does not follow the language rules.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="keyword">if</span> <span class="number">10</span> > <span class="number">5</span>
+    <span class="function">print</span>(<span class="string">"Yes"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">SyntaxError: expected ':'</div>
+            <div class="interaction-box">
+                <strong>Explanation:</strong> The colon : is missing after the if condition. Python cannot interpret the statement and stops execution.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What type of error occurs when the code breaks the language rules (e.g., missing colon)?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-501" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(501, 'syntax error')">Check Answer</button>
+                </div>
+                <div id="feedback-501" class="feedback"></div>
+            </div>
+
+            <h3>Runtime Errors</h3>
+            <p>Runtime errors occur while the program is running.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="function">print</span>(<span class="number">10</span> / <span class="number">0</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">ZeroDivisionError: division by zero</div>
+            <div class="interaction-box">
+                <strong>Explanation:</strong> Division by zero is mathematically impossible. The program crashes during execution.
+            </div>
+
+            <h3>Logic Errors</h3>
+            <p>Logic errors occur when the program runs without crashing but produces incorrect results.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="keyword">def</span> <span class="function">add</span>(a, b):
+    <span class="keyword">return</span> a - b
+
+<span class="function">print</span>(add(<span class="number">5</span>, <span class="number">3</span>))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">2</div>
+            <div class="interaction-box">
+                The function is named add, but it performs subtraction. Python does not detect this error because the syntax is correct.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What type of error occurs when a program runs but produces the **wrong result**?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-502" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(502, 'logic error')">Check Answer</button>
+                </div>
+                <div id="feedback-502" class="feedback"></div>
+            </div>
+
+            <div class="section-header">
+                <h2>5.2 Exception Handling</h2>
+            </div>
+            <p>Instead of allowing a program to crash, Python provides exception handling. This allows programs to handle errors safely using: <strong>try, except, else,</strong> and <strong>finally</strong>.</p>
+
+            <h3>Basic try–except</h3>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="keyword">try</span>:
+    <span class="function">print</span>(<span class="number">10</span> / <span class="number">0</span>)
+<span class="keyword">except</span>:
+    <span class="function">print</span>(<span class="string">"An error occurred"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">An error occurred</div>
+            <div class="interaction-box">
+                <strong>Explanation:</strong> The risky code is placed inside the try block. If an error occurs, Python executes the except block.
+            </div>
+
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which Python keyword is used to catch and handle exceptions that occur in the <code>try</code> block?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-1" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(1, 'except')">Check Answer</button>
+                </div>
+                <div id="feedback-1" class="feedback"></div>
+            </div>
+
+            <h3>Handling Specific Exceptions</h3>
+            <p>It is better to catch specific errors rather than all errors.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="keyword">try</span>:
+    number = <span class="function">int</span>(<span class="string">"abc"</span>)
+<span class="keyword">except</span> <span class="function">ValueError</span>:
+    <span class="function">print</span>(<span class="string">"Invalid number conversion"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Invalid number conversion</div>
+            <div class="interaction-box">
+                <strong>Explanation:</strong> int("abc") cannot convert text into an integer. Python raises a ValueError, which we handle using except ValueError.
+            </div>
+
+            <h3>try – except – else</h3>
+            <p>The else block executes only if no error occurs.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="keyword">try</span>:
+    result = <span class="number">10</span> / <span class="number">2</span>
+<span class="keyword">except</span> <span class="function">ZeroDivisionError</span>:
+    <span class="function">print</span>(<span class="string">"Cannot divide by zero"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Result:"</span>, result)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">Result: 5.0</div>
+
+            <h3>finally Block</h3>
+            <p>The finally block always executes, whether an error occurs or not.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="keyword">try</span>:
+    <span class="function">print</span>(<span class="number">10</span> / <span class="number">2</span>)
+<span class="keyword">except</span>:
+    <span class="function">print</span>(<span class="string">"Error occurred"</span>)
+<span class="keyword">finally</span>:
+    <span class="function">print</span>(<span class="string">"Program execution finished"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">5.0<br>Program execution finished</div>
+            <div class="interaction-box">
+                The finally block is often used to release resources, such as closing files.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which block **always** executes, whether an error occurred or not?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-503" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(503, 'finally')">Check Answer</button>
+                </div>
+                <div id="feedback-503" class="feedback"></div>
+            </div>
+
+            <!-- Coding Practice 1 -->
+            <div class="coding-practice">
+                <h3>Coding Practice: Handling Errors</h3>
+                <p><strong>Challenge:</strong> Write a <code>try-except</code> block that attempts to divide 10 by 0. In the <code>except</code> block, print <code>"Cannot divide by zero"</code>.</p>
+                <textarea id="coding-ans-1" placeholder="try:
+    ...
+except ... :
+    ..."></textarea>
+                <button class="btn-run" onclick="checkCodingPractice(1, [
+                    {type: 'regex', value: 'try\\s*:', message: 'Include try block'},
+                    {type: 'regex', value: '10\\s*/\\s*0', message: 'Attempt division by zero'},
+                    {type: 'regex', value: 'except', message: 'Include except block'},
+                    {type: 'regex', value: 'print\\s*\\(\\s*([\'&quot;])Cannot divide by zero\\1\\s*\\)', message: 'Print &quot;Cannot divide by zero&quot;'}
+                ])">Run & Check</button>
+                <div id="coding-feedback-1" class="feedback"></div>
+            </div>
+
+            <h3>raise Keyword</h3>
+            <p>The raise statement allows programmers to generate custom exceptions.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+age = -<span class="number">5</span>
+<span class="keyword">if</span> age < <span class="number">0</span>:
+    <span class="keyword">raise</span> <span class="function">ValueError</span>(<span class="string">"Age cannot be negative"</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">ValueError: Age cannot be negative</div>
+
+            <div class="section-header">
+                <h2>5.3 Unit Testing</h2>
+            </div>
+            <p>Unit testing verifies that individual parts of a program work correctly. Python provides the <strong>unittest</strong> module for automated testing.</p>
+
+            <h3>Basic Unit Test Structure</h3>
+            <p><strong>Example:</strong></p>
+<pre>
+<span class="keyword">import</span> unittest
+
+<span class="keyword">class</span> <span class="title">TestMath</span>(unittest.TestCase):
+    <span class="keyword">def</span> <span class="function">test_add</span>(self):
+        self.assertEqual(<span class="number">2</span> + <span class="number">3</span>, <span class="number">5</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    unittest.main()
+</pre>
+            <div class="interaction-box">
+                <strong>Explanation:</strong> assertEqual() checks whether the result matches the expected value. If correct, the test passes.
+            </div>
+
+            <h3>Common Unit Testing Assertions</h3>
+            <ul>
+                <li><strong>assertTrue(condition)</strong>: Passes if the condition is True.</li>
+                <li><strong>assertIsInstance(val, type)</strong>: Verifies if the variable belongs to the expected data type.</li>
+                <li><strong>assertIn(val, list)</strong>: Checks whether a value exists inside a collection.</li>
+                <li><strong>assertEqual(a, b)</strong>: Ensures that the expected output equals the actual output.</li>
+            </ul>
+
+            <div class="section-header">
+                <h2>Integrated Business Example</h2>
+            </div>
+            <p>Example: Safe financial division.</p>
+<pre>
+<span class="keyword">def</span> <span class="function">divide_profit</span>(total_profit, partners):
+    <span class="keyword">if</span> partners == <span class="number">0</span>:
+        <span class="keyword">raise</span> <span class="function">ValueError</span>(<span class="string">"Partners cannot be zero"</span>)
+    <span class="keyword">return</span> total_profit / partners
+
+<span class="keyword">try</span>:
+    <span class="function">print</span>(divide_profit(<span class="number">10000</span>, <span class="number">2</span>))
+<span class="keyword">except</span> <span class="function">ValueError</span> <span class="keyword">as</span> error:
+    <span class="function">print</span>(error)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">5000.0</div>
+            <div class="interaction-box">
+                <strong>Explanation:</strong> This example demonstrates: Custom error validation, Exception handling, and Safe calculation. Such validation is important in financial applications.
+            </div>
+            <!-- Quiz CTA -->
+            <div class="quiz-cta">
+                <h3>Module 5 Complete!</h3>
+                <p>Verify your understanding of Python's error handling and unit testing principles.</p>
+                <a href="module_quiz.html?mod=5" class="btn-start-quiz">Start Module 5 Quiz &rarr;</a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        © 2026 KVJ Analytics | Professional Python Certification Path
+    </footer>
+    <script>
+        function checkPracticeAnswer(id, correctAns) {
+            const userAns = document.getElementById(`practice-ans-${id}`).value.trim().toLowerCase();
+            const feedback = document.getElementById(`feedback-${id}`);
+            
+            if (userAns === correctAns.toLowerCase()) {
+                feedback.innerHTML = "✓ Correct! Well done.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Incorrect. Try again! Hint: It's the keyword used after 'try'.";
+                feedback.className = "feedback wrong";
+            }
+        }
+
+        function checkCodingPractice(id, requirements) {
+            const userCode = document.getElementById(`coding-ans-${id}`).value.trim();
+            const feedback = document.getElementById(`coding-feedback-${id}`);
+            const codeNoComments = userCode.replace(/#.*$/gm, '').trim();
+            
+            let isCorrect = true;
+            let messages = [];
+            let captures = [];
+
+            requirements.forEach(req => {
+                if (req.type === 'regex') {
+                    const regex = new RegExp(req.value, req.flags || '');
+                    const match = codeNoComments.match(regex);
+                    if (!match) {
+                        isCorrect = false;
+                        messages.push(req.message || "Incorrect logic");
+                    } else if (match) {
+                        for (let i = 1; i < match.length; i++) {
+                            captures.push(match[i]);
+                        }
+                    }
+                } else if (req.type === 'consistency') {
+                    const var1 = captures[req.variables[0]];
+                    const var2 = captures[req.variables[1]];
+                    if (var1 === undefined || var2 === undefined || var1 !== var2) {
+                        isCorrect = false;
+                        messages.push(req.message || "Variable inconsistency");
+                    }
+                }
+            });
+
+            if (isCorrect) {
+                feedback.innerHTML = "✓ Correct! Error handling logic verified.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Error: " + messages[0];
+                feedback.className = "feedback wrong";
+            }
+        }
+    </script>
+</body>
+</html>

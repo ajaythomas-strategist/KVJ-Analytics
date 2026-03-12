@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Foundation | KVJ Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a5f;
+            --secondary-blue: #008eab;
+            --bg-light: #f6f8fb;
+            --text-main: #1d1d1f;
+            --text-muted: #4b5563;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Top Nav */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+        }
+
+        .kvj-logo-img { max-height: 35px; width: auto; }
+
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            padding: 8px 18px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+            transition: opacity 0.3s;
+            text-transform: uppercase;
+        }
+
+        /* Header Banner */
+        .header-banner { 
+            background: var(--primary-blue); 
+            color: white; 
+            padding: 120px 20px 60px; 
+            text-align: center; 
+        }
+        .header-banner h1 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px; 
+            font-weight: 900; 
+            letter-spacing: -1px; 
+            text-transform: uppercase;
+        }
+
+        /* Layout Container */
+        .layout-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 40px auto;
+            gap: 40px;
+            width: 95%;
+            padding-bottom: 60px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 100px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            height: fit-content;
+        }
+
+        .sidebar h3 { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px; 
+            color: var(--secondary-blue); 
+            text-transform: uppercase; 
+            margin-bottom: 20px; 
+            border-bottom: 2px solid var(--bg-light); 
+            padding-bottom: 10px; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+        }
+
+        .sidebar a { 
+            display: flex; 
+            align-items: center;
+            padding: 12px 15px; 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 14px; 
+            font-weight: 500;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .sidebar a.active { 
+            color: var(--primary-blue); 
+            font-weight: 700; 
+            background: #f0f7ff; 
+            border-left: 4px solid var(--primary-blue); 
+        }
+
+        .sidebar a:hover:not(.active) {
+            background: #f8fafc;
+            color: var(--primary-blue);
+        }
+
+        /* Main Content Area */
+        .main-content { 
+            flex: 1;
+            background: #ffffff; 
+            border: 1px solid var(--border-color);
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.04);
+        }
+
+        .section-header { 
+            margin-bottom: 30px; 
+            border-bottom: 3px solid var(--bg-light); 
+            padding-bottom: 15px; 
+        }
+        .section-header h2 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue); 
+            font-size: 28px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: -0.5px;
+        }
+
+        /* Content Styles */
+        p { line-height: 1.8; margin-bottom: 25px; color: #334155; font-size: 17px; }
+        strong { color: var(--primary-blue); font-weight: 700; }
+        h1, h2, h3 { color: var(--primary-blue); font-weight: 700; }
+        
+        .interaction-box strong { color: var(--secondary-blue); }
+        
+        .interaction-box { 
+            background-color: #f7f9fc; 
+            border-left: 5px solid var(--secondary-blue); 
+            padding: 25px; 
+            margin: 30px 0; 
+            border-radius: 0 10px 10px 0;
+            font-size: 15px;
+        }
+
+        h3 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue); 
+            margin: 40px 0 20px; 
+            font-size: 22px; 
+            font-weight: 700; 
+        }
+
+        /* Code Block Styling */
+        pre { 
+            background: #1e293b; 
+            color: #f8fafc; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            font-family: 'Fira Code', 'Consolas', monospace; 
+            font-size: 14px; 
+            margin: 20px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .output-box { 
+            background-color: #ecfeff; 
+            border: 1px solid #cffafe; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-family: monospace; 
+            font-size: 14px; 
+            margin-bottom: 30px; 
+            color: var(--secondary-blue); 
+            font-weight: 700; 
+            display: flex;
+            align-items: center;
+        }
+        .output-box::before { content: "> Result: "; margin-right: 10px; opacity: 0.6; }
+
+        /* Keywords */
+        .keyword { color: #f472b6; }
+        .function { color: #4ade80; }
+        .string { color: #fbbf24; }
+        .comment { color: #94a3b8; }
+
+        /* Quiz CTA */
+        .quiz-cta {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #008eab 100%);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 142, 171, 0.2);
+        }
+        .quiz-cta h3 { color: white; margin-top: 0; font-size: 24px; border: none; padding: 0; }
+        .quiz-cta p { color: rgba(255,255,255,0.8); margin-bottom: 25px; }
+        .btn-start-quiz {
+            display: inline-block;
+            background: #ffffff;
+            color: var(--primary-blue);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .btn-start-quiz:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: #f8fafc;
+        }
+
+        footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 13px; border-top: 1px solid var(--border-color); margin-top: 40px; }
+        
+        /* Practice Space Styling */
+        .practice-space {
+            background: #ffffff;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 15px rgba(0, 142, 171, 0.1);
+        }
+        .practice-space h3 { margin-top: 0; color: var(--secondary-blue); font-size: 20px; }
+        .practice-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .practice-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .practice-box button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+        .practice-box button:hover { background: var(--secondary-blue); }
+        .feedback {
+            margin-top: 15px;
+            font-weight: 700;
+            display: none;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .feedback.correct { color: #065f46; background: #ecfdf5; display: block; border: 1px solid #a7f3d0; }
+        .feedback.wrong { color: #991b1b; background: #fef2f2; display: block; border: 1px solid #fecaca; }
+
+        /* Coding Practice Styling */
+        .coding-practice {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            color: #f8fafc;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .coding-practice h3 { margin-top: 0; color: #7dd3fc; font-size: 22px; font-weight: 700; }
+        .coding-practice p { color: #e2e8f0; font-size: 16px; margin-bottom: 20px; }
+        .coding-practice strong { color: #f8fafc; font-weight: 800; }
+        .coding-practice textarea {
+            width: 100%;
+            height: 120px;
+            background: #0f172a;
+            color: #38bdf8;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            resize: vertical;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        .coding-practice textarea:focus { border-color: #38bdf8; }
+        .coding-practice .btn-run {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .coding-practice .btn-run:hover { background: #7dd3fc; transform: translateY(-2px); }
+
+        @media (max-width: 992px) {
+            .layout-container { flex-direction: column; }
+            .sidebar { width: 100%; position: static; margin-bottom: 30px; }
+            .main-content { padding: 30px; }
+            .practice-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="python_index.html"><img src="Kvj logo.jpeg" alt="KVJ Analytics Logo" class="kvj-logo-img"></a>
+        <a href="roadmap.html" class="logout-btn">EXIT</a>
+    </nav>
+
+    <header class="header-banner">
+        <h1>MODULE 1: FOUNDATION</h1>
+    </header>
+
+    <div class="layout-container">
+        <nav class="sidebar">
+            <h3>Module Path</h3>
+            <a href="Module-1.html" class="active">01 Foundation</a>
+            <a href="Module-2.html">02 Flow Control</a>
+            <a href="Module-3.html">03 I/O Operations</a>
+            <a href="Module-4.html">04 Documentation</a>
+            <a href="Module-5.html">05 Error Handling</a>
+            <a href="Module-6.html">06 Built-in Modules</a>
+            
+            <h3 style="margin-top:25px;">Navigation</h3>
+            <a href="roadmap.html" style="background: #f8f9fa;">&larr; Return to Roadmap</a>
+        </nav>
+
+        <main class="main-content">
+            <div class="section-header">
+                <h2>MODULE 1</h2>
+                <p style="font-weight: 600; color: var(--secondary-blue);">Data Types, Data Structures & Operators</p>
+            </div>
+            
+            <h3>Introduction to Python</h3>
+            <p>Python is a high-level programming language used to write instructions for computers.</p>
+            <p>It is widely used because it is:</p>
+            <ul>
+                <li>Easy to read</li>
+                <li>Beginner friendly</li>
+                <li>Powerful</li>
+                <li>Used in many industries</li>
+            </ul>
+            <p>Python is used in:</p>
+            <ul>
+                <li>Data Science</li>
+                <li>Artificial Intelligence</li>
+                <li>Web Development</li>
+                <li>Finance & FinTech</li>
+                <li>Business Automation</li>
+                <li>Cybersecurity</li>
+            </ul>
+            <p>Common job roles where Python is used:</p>
+            <ul>
+                <li>Data Analyst</li>
+                <li>Business Analyst</li>
+                <li>Backend Developer</li>
+                <li>Machine Learning Engineer</li>
+                <li>Financial Analyst</li>
+                <li>Automation Engineer</li>
+            </ul>
+            <p>The concepts in this module form the foundation for learning Python.</p>
+
+            <div class="section-header">
+                <h2>1.1 Understanding Data Types</h2>
+            </div>
+            <p>Python automatically assigns a data type based on the value stored.</p>
+            <p>This is called <strong>dynamic typing</strong>.</p>
+
+            <h3>Integer (int)</h3>
+            <p>Whole numbers without decimals.</p>
+            <p><strong>Example:</strong></p>
+<pre>
+units_sold = <span class="number">150</span>
+<span class="function">print</span>(<span class="function">type</span>(units_sold))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">&lt;class 'int'&gt;</div>
+            <div class="interaction-box">
+                The value 150 is a whole number, so Python assigns it the integer data type.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What is the name of the data type used for whole numbers?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-101" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(101, 'int')">Check Answer</button>
+                </div>
+                <div id="feedback-101" class="feedback"></div>
+            </div>
+
+            <h3>Float (float)</h3>
+            <p>Numbers with decimal values.</p>
+            <p><strong>Example</strong></p>
+<pre>
+product_price = <span class="number">199.99</span>
+<span class="function">print</span>(<span class="function">type</span>(product_price))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">&lt;class 'float'&gt;</div>
+            <div class="interaction-box">
+                Decimal numbers are stored as float values.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What is the name of the data type used for numbers with decimals?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-102" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(102, 'float')">Check Answer</button>
+                </div>
+                <div id="feedback-102" class="feedback"></div>
+            </div>
+
+            <h3>String (str)</h3>
+            <p>Strings store text data such as names, product labels, or company names.</p>
+            <p><strong>Example</strong></p>
+<pre>
+company_name = <span class="string">"Global Finance Ltd"</span>
+<span class="function">print</span>(<span class="function">type</span>(company_name))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">&lt;class 'str'&gt;</div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What is the name of the data type used for text?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-103" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(103, 'str')">Check Answer</button>
+                </div>
+                <div id="feedback-103" class="feedback"></div>
+            </div>
+
+            <h3>Important comparison</h3>
+<pre>
+<span class="function">print</span>(<span class="function">type</span>(<span class="string">"10"</span>))
+<span class="function">print</span>(<span class="function">type</span>(<span class="number">10</span>))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">
+                &lt;class 'str'&gt;<br>
+                &lt;class 'int'&gt;
+            </div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                "10" → text<br>
+                10 → number
+            </div>
+
+            <h3>Boolean (bool)</h3>
+            <p>Boolean values represent True or False.</p>
+            <p><strong>Example</strong></p>
+<pre>
+profit = <span class="number">5000</span>
+result = profit > <span class="number">0</span>
+<span class="function">print</span>(result)
+<span class="function">print</span>(<span class="function">type</span>(result))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">
+                True<br>
+                &lt;class 'bool'&gt;
+            </div>
+            <div class="interaction-box">
+                The comparison profit > 0 returns a Boolean value.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What data type represents <code>True</code> or <code>False</code>?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-104" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(104, 'bool')">Check Answer</button>
+                </div>
+                <div id="feedback-104" class="feedback"></div>
+            </div>
+
+            <h3>Evaluating Expressions</h3>
+<pre>
+sales = <span class="number">5000</span>
+tax_rate = <span class="number">0.05</span>
+customer = <span class="string">"Rahul"</span>
+status = sales > <span class="number">3000</span>
+<span class="function">print</span>(<span class="function">type</span>(sales))
+<span class="function">print</span>(<span class="function">type</span>(tax_rate))
+<span class="function">print</span>(<span class="function">type</span>(customer))
+<span class="function">print</span>(<span class="function">type</span>(status))
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">
+                &lt;class 'int'&gt;<br>
+                &lt;class 'float'&gt;<br>
+                &lt;class 'str'&gt;<br>
+                &lt;class 'bool'&gt;
+            </div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                sales → integer<br>
+                tax_rate → float<br>
+                customer → string<br>
+                status → boolean
+            </div>
+
+            <h3>Type Conversion</h3>
+            <p>Type conversion changes data from one type to another.</p>
+            <p><strong>Example</strong></p>
+<pre>
+x = <span class="function">int</span>(<span class="string">"100"</span>)
+y = <span class="function">float</span>(<span class="string">"10.5"</span>)
+z = <span class="function">str</span>(<span class="number">500</span>)
+w = <span class="function">bool</span>(<span class="number">0</span>)
+<span class="function">print</span>(x)
+<span class="function">print</span>(y)
+<span class="function">print</span>(z)
+<span class="function">print</span>(w)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">
+                100<br>
+                10.5<br>
+                500<br>
+                False
+            </div>
+            <div class="interaction-box">
+                <strong>Explanation</strong><br>
+                bool() converts to Boolean
+            </div>
+
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which Python function is used to convert a value into an <strong>integer</strong>?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-1" placeholder="Type your answer here (e.g., func())">
+                    <button onclick="checkPracticeAnswer(1, 'int()')">Check Answer</button>
+                </div>
+                <div id="feedback-1" class="feedback"></div>
+            </div>
+
+            <!-- Coding Practice 1 -->
+            <div class="coding-practice">
+                <h3>Coding Practice: Type Conversion</h3>
+                <p><strong>Challenge:</strong> Write a Python program to convert the string <code>"500"</code> into an integer and print its type.</p>
+                <textarea id="coding-ans-1" placeholder="# Write your code here...
+x = ...
+print(...)"></textarea>
+                <button class="btn-run" onclick="checkCodingPractice(1, [
+                    {type: 'regex', value: 'int\\s*\\(\\s*[\'&quot;]500[\'&quot;]\\s*\\)|int\\s*\\(\\s*\\w+\\s*\\)', message: 'Convert &quot;500&quot; to integer using int()'},
+                    {type: 'regex', value: 'type\\s*\\([\\s\\S]*?\\)', message: 'Use type() to check the type'},
+                    {type: 'regex', value: 'print\\s*\\([\\s\\S]*?\\)', message: 'Print the result'}
+                ])">Run &amp; Check</button>
+                <div id="coding-feedback-1" class="feedback"></div>
+            </div>
+
+            <div class="section-header">
+                <h2>1.2 Constructing Data Structures</h2>
+            </div>
+            <p>Python provides structures for storing collections of data.</p>
+
+            <h3>List</h3>
+            <p>A list stores ordered values.</p>
+            <p>Example: monthly sales data.</p>
+<pre>
+monthly_sales = [<span class="number">5000</span>, <span class="number">7200</span>, <span class="number">6500</span>]
+<span class="function">print</span>(monthly_sales)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">[5000, 7200, 6500]</div>
+            <p><strong>Characteristics</strong></p>
+            <ul>
+                <li>Ordered</li>
+                <li>Mutable</li>
+                <li>Allows duplicates</li>
+            </ul>
+
+            <h3>Indexing</h3>
+<pre>
+<span class="function">print</span>(monthly_sales[<span class="number">0</span>])
+<span class="function">print</span>(monthly_sales[<span class="number">-1</span>])
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">
+                5000<br>
+                6500
+            </div>
+            <div class="interaction-box">
+                Index 0 refers to the first value.
+            </div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What index number is used to access the **first** element in a list?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-105" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(105, '0')">Check Answer</button>
+                </div>
+                <div id="feedback-105" class="feedback"></div>
+            </div>
+
+            <!-- Coding Practice 2 -->
+            <div class="coding-practice">
+                <h3>Coding Practice: List Indexing</h3>
+                <p><strong>Challenge:</strong> Create a list called <code>scores</code> with values <code>[85, 90, 95]</code> and print the <strong>first</strong> element.</p>
+                <textarea id="coding-ans-2" placeholder="# Write your code here..."></textarea>
+                <button class="btn-run" onclick="checkCodingPractice(2, [
+                    {type: 'regex', value: '\\[\\s*85\\s*,\\s*90\\s*,\\s*95\\s*\\]', message: 'Create a list with values [85, 90, 95]'},
+                    {type: 'regex', value: '\\[\\s*0\\s*\\]', message: 'Access the first element using index [0]'},
+                    {type: 'regex', value: 'print\\s*\\([\\s\\S]*?\\)', message: 'Print the result'}
+                ])">Run &amp; Check</button>
+                <div id="coding-feedback-2" class="feedback"></div>
+            </div>
+
+            <h3>Slicing</h3>
+<pre>
+<span class="function">print</span>(monthly_sales[<span class="number">0</span>:<span class="number">2</span>])
+<span class="function">print</span>(monthly_sales[:<span class="number">2</span>])
+<span class="function">print</span>(monthly_sales[<span class="number">1</span>:])
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">
+                [5000, 7200]<br>
+                [5000, 7200]<br>
+                [7200, 6500]
+            </div>
+
+            <h3>List Operations</h3>
+            <p><strong>append()</strong></p>
+<pre>
+monthly_sales.append(<span class="number">9000</span>)
+<span class="function">print</span>(monthly_sales)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">[5000, 7200, 6500, 9000]</div>
+
+            <p><strong>insert()</strong></p>
+<pre>
+monthly_sales.insert(<span class="number">1</span>, <span class="number">6000</span>)
+<span class="function">print</span>(monthly_sales)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">[5000, 6000, 7200, 6500, 9000]</div>
+
+            <p><strong>remove()</strong></p>
+<pre>
+monthly_sales.remove(<span class="number">6500</span>)
+<span class="function">print</span>(monthly_sales)
+</pre>
+
+            <p><strong>sort()</strong></p>
+<pre>
+monthly_sales.sort()
+<span class="function">print</span>(monthly_sales)
+</pre>
+
+            <p><strong>reverse()</strong></p>
+<pre>
+monthly_sales.reverse()
+<span class="function">print</span>(monthly_sales)
+</pre>
+
+            <p><strong>max() and min()</strong></p>
+<pre>
+<span class="function">print</span>(<span class="function">max</span>(monthly_sales))
+<span class="function">print</span>(<span class="function">min</span>(monthly_sales))
+</pre>
+
+            <h3>Tuple</h3>
+            <p>Tuples store fixed data that should not change.</p>
+            <p>Example: store coordinates of a branch office.</p>
+<pre>
+location = (<span class="number">10</span>, <span class="number">20</span>)
+<span class="function">print</span>(location)
+</pre>
+            <p>Tuples are <strong>immutable</strong>.</p>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Are Tuples mutable (can be changed) or immutable (cannot be changed)?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-106" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(106, 'immutable')">Check Answer</button>
+                </div>
+                <div id="feedback-106" class="feedback"></div>
+            </div>
+
+            <h3>Set</h3>
+            <p>Sets store unique values.</p>
+            <p>Example: unique product IDs.</p>
+<pre>
+product_ids = {<span class="number">101</span>, <span class="number">102</span>, <span class="number">103</span>, <span class="number">103</span>}
+<span class="function">print</span>(product_ids)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">{101, 102, 103}</div>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which data structure stores only **unique** values and has no duplicate elements?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-107" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(107, 'set')">Check Answer</button>
+                </div>
+                <div id="feedback-107" class="feedback"></div>
+            </div>
+
+            <h3>Dictionary</h3>
+            <p>Dictionaries store key-value pairs.</p>
+            <p>Example: customer information.</p>
+<pre>
+customer = {
+    <span class="string">"name"</span>: <span class="string">"Rahul"</span>,
+    <span class="string">"balance"</span>: <span class="number">5000</span>,
+    <span class="string">"account_type"</span>: <span class="string">"Savings"</span>
+}
+<span class="function">print</span>(customer[<span class="string">"name"</span>])
+</pre>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> What data structure uses <strong>key-value pairs</strong>?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-108" placeholder="Type your answer here...">
+                    <button onclick="checkPracticeAnswer(108, 'dictionary')">Check Answer</button>
+                </div>
+                <div id="feedback-108" class="feedback"></div>
+            </div>
+
+            <div class="section-header">
+                <h2>1.3 Operators</h2>
+            </div>
+            <h3>Arithmetic operators</h3>
+<pre>
+<span class="function">print</span>(<span class="number">10</span> + <span class="number">5</span>)
+<span class="function">print</span>(<span class="number">10</span> - <span class="number">5</span>)
+<span class="function">print</span>(<span class="number">10</span> * <span class="number">5</span>)
+<span class="function">print</span>(<span class="number">10</span> / <span class="number">5</span>)
+<span class="function">print</span>(<span class="number">10</span> // <span class="number">3</span>)
+<span class="function">print</span>(<span class="number">10</span> % <span class="number">3</span>)
+<span class="function">print</span>(<span class="number">2</span> ** <span class="number">3</span>)
+</pre>
+            <!-- Practice Space -->
+            <div class="practice-space">
+                <h3>Practice Space</h3>
+                <p><strong>Question:</strong> Which Python operator is used for <strong>exponentiation</strong> (power)?</p>
+                <div class="practice-box">
+                    <input type="text" id="practice-ans-109" placeholder="Type your answer here (e.g., **)">
+                    <button onclick="checkPracticeAnswer(109, '**')">Check Answer</button>
+                </div>
+                <div id="feedback-109" class="feedback"></div>
+            </div>
+
+            <h3>Comparison operators</h3>
+<pre>
+<span class="function">print</span>(<span class="number">10</span> > <span class="number">5</span>)
+<span class="function">print</span>(<span class="number">10</span> == <span class="number">5</span>)
+<span class="function">print</span>(<span class="number">10</span> != <span class="number">5</span>)
+</pre>
+
+            <h3>Logical operators</h3>
+<pre>
+<span class="function">print</span>(<span class="keyword">True</span> <span class="keyword">and</span> <span class="keyword">False</span>)
+<span class="function">print</span>(<span class="keyword">True</span> <span class="keyword">or</span> <span class="keyword">False</span>)
+<span class="function">print</span>(<span class="keyword">not</span> <span class="keyword">True</span>)
+</pre>
+
+            <h3>Assignment operators</h3>
+<pre>
+revenue = <span class="number">10000</span>
+revenue += <span class="number">2000</span>
+<span class="function">print</span>(revenue)
+</pre>
+
+            <h3>Identity operator</h3>
+<pre>
+a = <span class="number">10</span>
+b = <span class="number">10</span>
+<span class="function">print</span>(a <span class="keyword">is</span> b)
+</pre>
+
+            <h3>Membership operator</h3>
+<pre>
+products = [<span class="string">"Laptop"</span>, <span class="string">"Phone"</span>, <span class="string">"Tablet"</span>]
+<span class="function">print</span>(<span class="string">"Phone"</span> <span class="keyword">in</span> products)
+</pre>
+
+            <div class="section-header">
+                <h2>1.4 Operator Precedence</h2>
+            </div>
+<pre>
+result = <span class="number">10</span> + <span class="number">5</span> * <span class="number">2</span>
+<span class="function">print</span>(result)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">20</div>
+            <p>Multiplication happens before addition.</p>
+
+            <p><strong>Using parentheses</strong></p>
+<pre>
+<span class="function">print</span>((<span class="number">10</span> + <span class="number">5</span>) * <span class="number">2</span>)
+</pre>
+            <p><strong>Output</strong></p>
+            <div class="output-box">30</div>
+
+            <div class="section-header">
+                <h2>Integrated Business Example</h2>
+            </div>
+<pre>
+monthly_sales = [<span class="number">6500</span>, <span class="number">7200</span>, <span class="number">8800</span>, <span class="number">5400</span>]
+monthly_sales.append(<span class="number">9000</span>)
+monthly_sales.sort()
+average_sales = <span class="function">sum</span>(monthly_sales) / <span class="function">len</span>(monthly_sales)
+
+<span class="function">print</span>(<span class="string">"Sorted Sales:"</span>, monthly_sales)
+<span class="function">print</span>(<span class="string">"Average Sales:"</span>, average_sales)
+
+<span class="keyword">if</span> average_sales > <span class="number">6000</span>:
+    <span class="function">print</span>(<span class="string">"Business performance is strong"</span>)
+</pre>
+
+            <!-- Quiz CTA -->
+            <div class="quiz-cta">
+                <h3>Foundation Complete.</h3>
+                <p>Verify your understanding of data types, structures, and operators.</p>
+                <a href="module_quiz.html?mod=1" class="btn-start-quiz">Start Module 1 Quiz &rarr;</a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        © 2026 KVJ Analytics | Professional Python Certification Path
+    </footer>
+
+    <script>
+        // Welcome Logic
+        window.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('strategist_user') || 'Student';
+            console.log(`Knowledge session active for: ${userName}`);
+        });
+
+        function checkPracticeAnswer(id, correctAns) {
+            const userAns = document.getElementById(`practice-ans-${id}`).value.trim().toLowerCase();
+            const feedback = document.getElementById(`feedback-${id}`);
+            
+            // Clean correct answer for comparison
+            const cleanCorrect = correctAns.toLowerCase().replace(/\s/g, '');
+            const cleanUser = userAns.replace(/\s/g, '');
+
+            if (cleanUser === cleanCorrect || cleanUser === cleanCorrect.replace('()', '')) {
+                feedback.innerHTML = "✓ Correct! Well done.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Incorrect. Try again! Hint: It's the function used in the example above.";
+                feedback.className = "feedback wrong";
+            }
+        }
+
+        function checkCodingPractice(id, requirements) {
+            const userCode = document.getElementById(`coding-ans-${id}`).value.trim();
+            const feedback = document.getElementById(`coding-feedback-${id}`);
+            const codeNoComments = userCode.replace(/#.*$/gm, '').trim();
+            
+            let isCorrect = true;
+            let messages = [];
+            let captures = [];
+
+            requirements.forEach(req => {
+                if (req.type === 'contains') {
+                    if (!userCode.includes(req.value)) {
+                        isCorrect = false;
+                        messages.push(req.message || req.label || req.value);
+                    }
+                } else if (req.type === 'regex') {
+                    const regex = new RegExp(req.value, req.flags || '');
+                    const match = codeNoComments.match(regex);
+                    if (!match) {
+                        isCorrect = false;
+                        messages.push(req.message || "Incorrect logic");
+                    } else if (match) {
+                        for (let i = 1; i < match.length; i++) {
+                            captures.push(match[i]);
+                        }
+                    }
+                } else if (req.type === 'consistency') {
+                    const var1 = captures[req.variables[0]];
+                    const var2 = captures[req.variables[1]];
+                    if (var1 === undefined || var2 === undefined || var1 !== var2) {
+                        isCorrect = false;
+                        messages.push(req.message || "Variable inconsistency");
+                    }
+                }
+            });
+
+            if (isCorrect) {
+                feedback.innerHTML = "✓ Correct! Your code is accurate.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Error: " + messages[0];
+                feedback.className = "feedback wrong";
+            }
+        }
+    </script>
+</body>
+</html>
